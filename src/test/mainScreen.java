@@ -20,7 +20,7 @@ import java.awt.Font;
 public class mainScreen extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
+	private JTable stockBuyTable;
 
 	/**
 	 * Launch the application.
@@ -52,22 +52,33 @@ public class mainScreen extends JFrame {
 		JToolBar toolBar = new JToolBar();
 		contentPane.add(toolBar, BorderLayout.NORTH);
 		
-		JButton btnNewButton = new JButton("계정");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton accountSetButton = new JButton("계정");
+		accountSetButton.setFont(new Font("나눔고딕", Font.PLAIN, 12));
+		accountSetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		toolBar.add(btnNewButton);
+		toolBar.add(accountSetButton);
 		
-		JButton btnNewButton_2 = new JButton("전략");
-		toolBar.add(btnNewButton_2);
+		JButton strategySetButton = new JButton("전략");
+		strategySetButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		strategySetButton.setFont(new Font("나눔고딕", Font.PLAIN, 12));
+		toolBar.add(strategySetButton);
 		
-		JButton btnNewButton_1 = new JButton("설정");
-		toolBar.add(btnNewButton_1);
+		JButton settingButton = new JButton("설정");
+		settingButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		settingButton.setFont(new Font("나눔고딕", Font.PLAIN, 12));
+		toolBar.add(settingButton);
 		
-		table = new JTable();
-		table.setFont(new Font("나눔고딕", Font.PLAIN, 12));
-		contentPane.add(table, BorderLayout.CENTER);
+		stockBuyTable = new JTable();
+		stockBuyTable.setFont(new Font("나눔고딕", Font.PLAIN, 12));
+		contentPane.add(stockBuyTable, BorderLayout.CENTER);
 		
 		JList list = new JList();
 		contentPane.add(list, BorderLayout.EAST);
