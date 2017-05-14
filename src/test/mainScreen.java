@@ -52,7 +52,7 @@ public class mainScreen extends JFrame {
 		JToolBar toolBar = new JToolBar();
 		contentPane.add(toolBar, BorderLayout.NORTH);
 		
-		JButton accountSetButton = new JButton("계정");
+		JButton accountSetButton = new JButton("계좌");
 		accountSetButton.setFont(new Font("나눔고딕", Font.PLAIN, 12));
 		accountSetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -77,7 +77,7 @@ public class mainScreen extends JFrame {
 		toolBar.add(settingButton);
 		
 		stockBuyTable = new JTable();
-		stockBuyTable.setFont(new Font("나눔고딕", Font.PLAIN, 12));
+		stockBuyTable.setFont(new Font("�굹�닎怨좊뵓", Font.PLAIN, 12));
 		contentPane.add(stockBuyTable, BorderLayout.CENTER);
 		
 		JList list = new JList();

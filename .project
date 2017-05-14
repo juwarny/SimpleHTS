@@ -20,5 +20,10 @@
 			<type>2</type>
 			<location>C:/Users/zmsdp/Documents/com4j-20120426-2/ds</location>
 		</link>
+		<link>
+			<name>ds/test</name>
+			<type>2</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Documents/com4j-20120426-2/ds/test</locationURI>
+		</link>
 	</linkedResources>
 </projectDescription>
