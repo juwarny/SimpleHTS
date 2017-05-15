@@ -12,7 +12,6 @@ public class dstest{
 		dib.setInputValue(0, "A005935");
 		dib.subscribe();
 		System.out.println(dib.getHeaderValue(1));
-
 		System.out.println(bos.isConnect());
 		
 	}

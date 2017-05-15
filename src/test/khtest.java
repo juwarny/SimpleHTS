@@ -1,15 +1,14 @@
 package test;
 
 import com4j.*;
-
-import test.khopenapi.*;
 import test.khopenapi.events.*;
-import test.SKCommAD.*;
+import test.khopenapi.*;
+
+
 
 public class khtest {
-	
-	_DKHOpenAPI kh = test.khopenapi.ClassFactory.createKHOpenAPI();
-	
-	kh.commConnect();
-	
+	public static void main(String[] args){
+		_DKHOpenAPI kh = ClassFactory.createKHOpenAPI();
+		kh.commConnect();
+	}	
 }

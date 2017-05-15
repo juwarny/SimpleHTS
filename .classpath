@@ -7,7 +7,6 @@
 	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/com4j-20120426-2/args4j-2.0.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/com4j-20120426-2/com4j.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/com4j-20120426-2/tlbimp.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/mariaDBjConnector/mariadb-java-client-2.0.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/mariaDBjConnector/mariadb-java-client-2.0.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/MySQL/Connector.J 5.1/mysql-connector-java-5.1.42-bin.jar" sourcepath="C:/Program Files (x86)/MySQL/Connector.J 5.1/src.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
