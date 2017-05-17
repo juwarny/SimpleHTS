@@ -16,11 +16,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
 import java.awt.Font;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import java.awt.GridLayout;
+import javax.swing.JProgressBar;
 
 public class mainScreen extends JFrame {
 
 	private JPanel contentPane;
-	private JTable stockBuyTable;
 
 	/**
 	 * Launch the application.
@@ -44,44 +47,32 @@ public class mainScreen extends JFrame {
 	public mainScreen() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1078, 644);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu accountMenu = new JMenu("계좌");
+		menuBar.add(accountMenu);
+		
+		JMenu strategyMenu = new JMenu("전략");
+		menuBar.add(strategyMenu);
+		
+		JMenu settingMenu = new JMenu("설정");
+		menuBar.add(settingMenu);
+		
+		JMenu helpMenu = new JMenu("도움말");
+		menuBar.add(helpMenu);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JToolBar toolBar = new JToolBar();
-		contentPane.add(toolBar, BorderLayout.NORTH);
+		JTree tree = new JTree();
+		contentPane.add(tree);
 		
-		JButton accountSetButton = new JButton("계좌");
-		accountSetButton.setFont(new Font("나눔고딕", Font.PLAIN, 12));
-		accountSetButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		toolBar.add(accountSetButton);
-		
-		JButton strategySetButton = new JButton("전략");
-		strategySetButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		strategySetButton.setFont(new Font("나눔고딕", Font.PLAIN, 12));
-		toolBar.add(strategySetButton);
-		
-		JButton settingButton = new JButton("설정");
-		settingButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		settingButton.setFont(new Font("나눔고딕", Font.PLAIN, 12));
-		toolBar.add(settingButton);
-		
-		stockBuyTable = new JTable();
-		stockBuyTable.setFont(new Font("�굹�닎怨좊뵓", Font.PLAIN, 12));
-		contentPane.add(stockBuyTable, BorderLayout.CENTER);
-		
-		JList list = new JList();
-		contentPane.add(list, BorderLayout.EAST);
+		JProgressBar progressBar = new JProgressBar();
+		contentPane.add(progressBar);
 	}
 
 }
