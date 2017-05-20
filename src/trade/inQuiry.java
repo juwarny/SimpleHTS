@@ -5,13 +5,14 @@ import com4j.*;
 import test.cptrade.*;
 
 public class inQuiry {
-	private ICpTdDib stpaydeposit = test.cptrade.ClassFactory.createCpTd0732();
-	private ICpTdDib purchaseavail = test.cptrade.ClassFactory.createCpTdNew5331A();
-	private ICpTdDib sellableavail = test.cptrade.ClassFactory.createCpTdNew5331B();
-	private ICpTdDib dayNconclud = test.cptrade.ClassFactory.createCpTd5339();
-	private ICpTdDib dayconclud = test.cptrade.ClassFactory.createCpTd5341();
-	private ICpTdDib ytdayconcri = test.cptrade.ClassFactory.createCpTd5342();
-	private ICpTdDib concribalance = test.cptrade.ClassFactory.createCpTd6033();
+	private ICpTdDib stpaydeposit = test.cptrade.ClassFactory.createCpTd0732(); //주식 결제예정 예수금 조회
+	private ICpTdDib purchaseavail = test.cptrade.ClassFactory.createCpTdNew5331A();//매수 주문 가능 금액/수량 조회
+	private ICpTdDib sellableavail = test.cptrade.ClassFactory.createCpTdNew5331B();//매도 주문 가능 수량조회 
+	private ICpTdDib dayNconclud = test.cptrade.ClassFactory.createCpTd5339();//금일 미체결내역 상세조회
+	private ICpTdDib dayconclud = test.cptrade.ClassFactory.createCpTd5341();//금일의 주문/체결내역 상세조회
+	private ICpTdDib ytdayconcri = test.cptrade.ClassFactory.createCpTd5342();//금일/전일의 종목별 체결기준 조회
+	private ICpTdDib concribalance = test.cptrade.ClassFactory.createCpTd6033();//체결기준 잔고조회
+
 	private ArrayList<Object> quiryinfo;
 	private odBeforeinit od;
 	private Object[] accountNum;
