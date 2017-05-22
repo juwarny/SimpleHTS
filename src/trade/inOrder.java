@@ -1,20 +1,27 @@
 package trade;
 
 import java.util.ArrayList;
-
 import com4j.*;
 import test.cptrade.*;
 
 public class inOrder {
-	private ICpTdDib inod = test.cptrade.ClassFactory.createCpTd0311();//장내주문
-	private ICpTdDib inodcredit = test.cptrade.ClassFactory.createCpTd0312();//장내 신용주분
-	private ICpTdDib inodalter = test.cptrade.ClassFactory.createCpTd0313();//장내주문 정정
-	private ICpTdDib inodcancle = test.cptrade.ClassFactory.createCpTd0314();//장내 주문취소
-	private ICpTdDib inodtypeccl = test.cptrade.ClassFactory.createCpTd0303();//장내 주문 유형 정정
+	private ICpTdDib inod;
+	private ICpTdDib inodcredit;
+	private ICpTdDib inodalter;
+	private ICpTdDib inodcancle;
+	private ICpTdDib inodtypeccl;
+	
 	private odBeforeinit od;
 	private Object[] accountNum;
 	private ArrayList<Object> orderinfo;
 	
+	public inOrder(){
+		inod = test.cptrade.ClassFactory.createCpTd0311();//장내주문
+		inodcredit = test.cptrade.ClassFactory.createCpTd0312();//장내 신용주분
+		inodalter = test.cptrade.ClassFactory.createCpTd0313();//장내주문 정정
+		inodcancle = test.cptrade.ClassFactory.createCpTd0314();//장내 주문취소
+		inodtypeccl = test.cptrade.ClassFactory.createCpTd0303();//장내 주문 유형 정정
+	}
 	public void setvalInod(String sb, String gdmgcode, String code, long quan, long unitprice, String callcode){
 		od = new odBeforeinit();
 		od.tradeInit();		

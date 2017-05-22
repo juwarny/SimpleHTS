@@ -5,11 +5,14 @@ import com4j.*;
 import test.cpdib.*;
 
 public class accountInfo {
-	private IDib cpConclu = test.cpdib.ClassFactory.createCpConclusion();
-	private ArrayList<Object> sellbuyInfo;// = new ArrayList<Object>();
+	private IDib cpConclu;
+	private ArrayList<Object> sellbuyInfo;
 	
-	
-	public ArrayList<Object> sellbutinfo(){
+	public accountInfo(){
+		cpConclu = test.cpdib.ClassFactory.createCpConclusion();//주식주문한 것에 대한 체결 내역을 요청하고 수신합니다
+	}
+		
+	public ArrayList<Object> sellbuyinfo(){
 		sellbuyInfo = new ArrayList<Object>();
 		cpConclu.subscribe();
 		for(int i=1; i<24; i++)
@@ -21,7 +24,7 @@ public class accountInfo {
 	}
 	public static void main(String[]args){
 		accountInfo ainfo = new accountInfo();
-		ArrayList<Object> sellbuyInfo = ainfo.sellbutinfo();
+		ArrayList<Object> sellbuyInfo = ainfo.sellbuyinfo();
 		for(Object i : sellbuyInfo){
 			i.toString();
 		}

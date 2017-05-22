@@ -13,7 +13,7 @@ public class CybosCondition {
 	public int limitRequestRemainTime(){
 		return bos.limitRequestRemainTime();		
 	}
-	public int limitRequestRemainTime(int limitType){
+	public int limitRequestRemainCount(int limitType){
 		if(limitType == 0){
 			return bos.getLimitRemainCount(test.cputil.LIMIT_TYPE.LT_TRADE_REQUEST);
 			//林巩包访 RQ 夸没
@@ -26,6 +26,15 @@ public class CybosCondition {
 			return bos.getLimitRemainCount(test.cputil.LIMIT_TYPE.LT_SUBSCRIBE);
 			//矫技包访 SB
 		}				
+	}
+	public static void main(String[]args){
+		CybosCondition bos = new CybosCondition();
+		System.out.println(bos.isConnect());
+		System.out.println(bos.limitRequestRemainTime());
+		System.out.println(bos.limitRequestRemainCount(0));
+		System.out.println(bos.limitRequestRemainCount(1));
+		System.out.println(bos.limitRequestRemainCount(2));
+		System.out.println(bos.serverType());
 	}
 
 }

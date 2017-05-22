@@ -5,14 +5,19 @@ import com4j.*;
 import test.cptrade.*;
 
 public class advanceOrder {
-	private ICpTdDib stadvanceOrder = test.cptrade.ClassFactory.createCpTdNew9061();//주식(거래소 코스닥) 예약 주문(신용포함)
-	private ICpTdDib stadvanceCancle = test.cptrade.ClassFactory.createCpTdNew9064();//주식(거래소 코스닥) 예약 취소주문
-	private ICpTdDib stadvanceOdList = test.cptrade.ClassFactory.createCpTd9065();//주식(거래소 코스닥) 예약 주문 내역조회
+	private ICpTdDib stadvanceOrder;
+	private ICpTdDib stadvanceCancle;
+	private ICpTdDib stadvanceOdList;
 	
 	private odBeforeinit od;
 	private Object[] accountNum;
 	private ArrayList<Object> adorderinfo;
-
+	
+	public advanceOrder(){
+		stadvanceOrder = test.cptrade.ClassFactory.createCpTdNew9061();//주식(거래소 코스닥) 예약 주문(신용포함)
+		stadvanceCancle = test.cptrade.ClassFactory.createCpTdNew9064();//주식(거래소 코스닥) 예약 취소주문
+		stadvanceOdList = test.cptrade.ClassFactory.createCpTd9065();//주식(거래소 코스닥) 예약 주문 내역조회
+	}
 	public void setvalStadOrder(String gdmgcode, String ordercode, String code, long orderQuan, String callcode, 
 								long orderprice, String cacrdcode, String datecrdloan, String crdloancode){
 		od = new odBeforeinit();
