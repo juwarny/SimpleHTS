@@ -34,13 +34,13 @@ public class StockCode {
 	public long GetPriceUnit(String code, int basePrice, boolean directionUp){
 		return stcode.getPriceUnit(code, basePrice, directionUp);	
 	}
-	public ArrayList<Object[]> getStockList(){
+	public ArrayList<Object[]> getStockList(){//수정좀 해야됨
 		stlist = new ArrayList<Object[]>();
 		fieldvalue = new Object[3];
 		for(short j = 0; j<3; j++)
 		{
 			fieldvalue[j] = new Object();
-		}
+		}		
 		for(int i=0; i<stcode.getCount(); i++)
 		{
 			for(int j = 0; j<3; j++)

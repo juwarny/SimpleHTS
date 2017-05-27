@@ -4,7 +4,7 @@ import test.CpSysDib.*;
 import java.util.ArrayList;
 import com4j.*;
 
-public class search {
+public class Search {
 	private ISysDib stglist;
 	private ISysDib stgfind;
 	private ISysDib wstgcon;
@@ -20,7 +20,7 @@ public class search {
 	private Object[] itemcode;
 	private	Object stgWcode;
 	
-	public search(){
+	public Search(){
 		stglist = test.CpSysDib.ClassFactory.createCssStgList();//서버에 저장된 종목검색 전략 (내 전략) 의 전략명과 전략ID 리스트를 가져온다.
 		stgfind = test.CpSysDib.ClassFactory.createCssStgFind();//각 종목검색 전략에 맞는 종목들을 리스트 형태로 가져온다.
 		wstgcon = test.CpSysDib.ClassFactory.createCssWatchStgControl();//전략 감시 시작/중지 하기 위한 오브젝트입니다.		
@@ -94,7 +94,7 @@ public class search {
 		return searchinfo;
 	}
 	public static void main(String[]args){
-		search s = new search();
+		Search s = new Search();
 		ArrayList<Object> a;
 		a = s.getHvalStglist();
 		System.out.println(a.get(0));

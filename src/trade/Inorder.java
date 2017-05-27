@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import com4j.*;
 import test.cptrade.*;
 
-public class inOrder {
+public class Inorder {
 	private ICpTdDib inod;
 	private ICpTdDib inodcredit;
 	private ICpTdDib inodalter;
 	private ICpTdDib inodcancle;
 	private ICpTdDib inodtypeccl;
 	
-	private odBeforeinit od;
+	private OdBeforeinit od;
 	private Object[] accountNum;
 	private ArrayList<Object> orderinfo;
 	
-	public inOrder(){
+	public Inorder(){
 		inod = test.cptrade.ClassFactory.createCpTd0311();//장내주문
 		inodcredit = test.cptrade.ClassFactory.createCpTd0312();//장내 신용주분
 		inodalter = test.cptrade.ClassFactory.createCpTd0313();//장내주문 정정
@@ -23,7 +23,7 @@ public class inOrder {
 		inodtypeccl = test.cptrade.ClassFactory.createCpTd0303();//장내 주문 유형 정정
 	}
 	public void setvalInod(String sb, String gdmgcode, String code, long quan, long unitprice, String callcode){
-		od = new odBeforeinit();
+		od = new OdBeforeinit();
 		od.tradeInit();		
 		accountNum =  od.getAccountNum();
 		
@@ -57,7 +57,7 @@ public class inOrder {
 	}
 	
 	public void setvalInodcredit(String sb, String gdmgcode, String code, long quan, long unitprice, String callcode, long loanperiod ){
-		od = new odBeforeinit();
+		od = new OdBeforeinit();
 		od.tradeInit();		
 		accountNum =  od.getAccountNum();
 		
@@ -95,7 +95,7 @@ public class inOrder {
 	}
 	
 	public void setvalInodAlter(long ordercode, String gdmgcode, String code, long quan, long unitprice){
-		od = new odBeforeinit();
+		od = new OdBeforeinit();
 		od.tradeInit();		
 		accountNum =  od.getAccountNum();
 		
@@ -127,7 +127,7 @@ public class inOrder {
 	}
 	
 	public void setvalInodCancle(long ordercode, String gdmgcode, String code, long quan, long unitprice, String callcode){
-		od = new odBeforeinit();
+		od = new OdBeforeinit();
 		od.tradeInit();		
 		accountNum =  od.getAccountNum();
 		
@@ -158,7 +158,7 @@ public class inOrder {
 	}
 	
 	public void setvalInodTypeccl(long ordercode, String gdmgcode, String code, long quan, long unitprice, String callcode){
-		od = new odBeforeinit();
+		od = new OdBeforeinit();
 		od.tradeInit();		
 		accountNum =  od.getAccountNum();
 		

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import com4j.*;
 import test.cptrade.*;
 
-public class inQuiry {
+public class Inquiry {
 	private ICpTdDib stpaydeposit;
 	private ICpTdDib purchaseavail;
 	private ICpTdDib sellableavail; 
@@ -14,10 +14,10 @@ public class inQuiry {
 	private ICpTdDib concribalance;
 	
 	private ArrayList<Object> quiryinfo;
-	private odBeforeinit od;
+	private OdBeforeinit od;
 	private Object[] accountNum;
 	
-	public inQuiry(){
+	public Inquiry(){
 		stpaydeposit = test.cptrade.ClassFactory.createCpTd0732(); //주식 결제예정 예수금 조회
 		purchaseavail = test.cptrade.ClassFactory.createCpTdNew5331A();//매수 주문 가능 금액/수량 조회
 		sellableavail = test.cptrade.ClassFactory.createCpTdNew5331B();//매도 주문 가능 수량조회 
@@ -45,7 +45,7 @@ public class inQuiry {
 	}
 	
 	public void setvalPurchase(String gdmgcode, String code, String callcode, long unitprice, String recimarginYN, String quirycode ){
-		od = new odBeforeinit();
+		od = new OdBeforeinit();
 		od.tradeInit();		
 		accountNum =  od.getAccountNum();
 		
@@ -73,7 +73,7 @@ public class inQuiry {
 	public void setvalSella(String gdmgcode, String code, String stbdcode, String cacrdcode, 
 							String datecrdloan, String crdloancode, String purdate, 
 							String stbdbalcode, String taxcode, long quirynum ){
-		od = new odBeforeinit();
+		od = new OdBeforeinit();
 		od.tradeInit();		
 		accountNum =  od.getAccountNum();
 		
@@ -102,7 +102,7 @@ public class inQuiry {
 	}
 	
 	public void setvalDayNconclud(String gdmgcode, String code, String callcode, String sortcode, String qrclosecode, long quirynum ){
-		od = new odBeforeinit();
+		od = new OdBeforeinit();
 		od.tradeInit();		
 		accountNum =  od.getAccountNum();
 		
@@ -128,7 +128,7 @@ public class inQuiry {
 	}
 	
 	public void setvalDayconclud(String gdmgcode, String code, long startcallcode, String sortcode, long quirynum, String quirycode){
-		od = new odBeforeinit();
+		od = new OdBeforeinit();
 		od.tradeInit();		
 		accountNum =  od.getAccountNum();
 		
@@ -155,7 +155,7 @@ public class inQuiry {
 	
 	
 	public void setvalYtdaycon(String gdmgcode,  long quirynum, String quirydatecode, String quiryitemcode){
-		od = new odBeforeinit();
+		od = new OdBeforeinit();
 		od.tradeInit();		
 		accountNum =  od.getAccountNum();
 		
@@ -189,7 +189,7 @@ public class inQuiry {
 	}
 	
 	public void setvalConcribalance(String gdmgcode,  long quirynum){
-		od = new odBeforeinit();
+		od = new OdBeforeinit();
 		od.tradeInit();		
 		accountNum =  od.getAccountNum();
 		

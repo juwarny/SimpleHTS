@@ -4,11 +4,11 @@ import java.util.*;
 import com4j.*;
 import test.cpdib.*;
 
-public class accountInfo {
+public class AccountInfo {
 	private IDib cpConclu;
 	private ArrayList<Object> sellbuyInfo;
 	
-	public accountInfo(){
+	public AccountInfo(){
 		cpConclu = test.cpdib.ClassFactory.createCpConclusion();//주식주문한 것에 대한 체결 내역을 요청하고 수신합니다
 	}
 		
@@ -23,7 +23,7 @@ public class accountInfo {
 		return sellbuyInfo;		
 	}
 	public static void main(String[]args){
-		accountInfo ainfo = new accountInfo();
+		AccountInfo ainfo = new AccountInfo();
 		ArrayList<Object> sellbuyInfo = ainfo.sellbuyinfo();
 		for(Object i : sellbuyInfo){
 			i.toString();

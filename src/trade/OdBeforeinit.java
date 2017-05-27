@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import com4j.*;
 import test.cptrade.*;
 
-public class odBeforeinit {
+public class OdBeforeinit {
 	private ICpTdUtil od;
 	private Object[] accountNum;
 	private Object[] accountfilt;
 	
-	public odBeforeinit(){
+	public OdBeforeinit(){
 		od = test.cptrade.ClassFactory.createCpTdUtil();//주문 오브젝트를 사용하기 위해 필요한 초기화 과정들을 수행한다.
 	}	
 	public Object[] getAccountNum() {
@@ -43,7 +43,7 @@ public class odBeforeinit {
 				
 	}
 	public static void main(String[]args){
-		odBeforeinit init = new odBeforeinit();
+		OdBeforeinit init = new OdBeforeinit();
 		Object[] accountNum;
 		Object[] accountfilt;
 
