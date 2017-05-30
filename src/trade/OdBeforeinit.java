@@ -46,7 +46,7 @@ public class OdBeforeinit {
 		OdBeforeinit init = new OdBeforeinit();
 		Object[] accountNum;
 		Object[] accountfilt;
-
+		
 		init.tradeInit();
 		accountNum = init.getAccountNum();
 		for(int i = 0; i<accountNum.length; i++){
