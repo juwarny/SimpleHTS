@@ -37,6 +37,9 @@ import javax.swing.Box;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Desktop.Action;
 import java.awt.CardLayout;
+import javax.swing.BoxLayout;
+import javax.swing.JMenuItem;
+import javax.swing.SwingConstants;
 
 public class mainScreen extends JFrame {
 
@@ -68,11 +71,27 @@ public class mainScreen extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu accountMenu = new JMenu("계좌");
+		JMenu accountMenu = new JMenu("계좌정보");
 		menuBar.add(accountMenu);
+		
+		JMenuItem balanceMenuItem = new JMenuItem("체결기준 잔고 조회/평가");
+		accountMenu.add(balanceMenuItem);
+		
+		JMenuItem dayconcludMenuItem = new JMenuItem("금일 주문/체결 내역");
+		accountMenu.add(dayconcludMenuItem);
 		
 		JMenu strategyMenu = new JMenu("전략");
 		menuBar.add(strategyMenu);
+		
+		JMenuItem autoOrderMenuItem = new JMenuItem("자동주문");
+		autoOrderMenuItem.setHorizontalAlignment(SwingConstants.LEFT);
+		strategyMenu.add(autoOrderMenuItem);
+		
+		JMenuItem orderMenuItem = new JMenuItem("수동주문");
+		strategyMenu.add(orderMenuItem);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("종목조회");
+		strategyMenu.add(mntmNewMenuItem);
 		
 		JMenu settingMenu = new JMenu("설정");
 		menuBar.add(settingMenu);
@@ -83,7 +102,7 @@ public class mainScreen extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new CardLayout(0, 0));
+		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 	}
 
 }

@@ -1,4 +1,4 @@
-package stockchart;
+package stock;
 
 import java.util.*;
 import com4j.*;
@@ -52,5 +52,5 @@ public class StockChart {
 			getlist.add(stkchart.getHeaderValue(i));
 		}		
 		return getlist;		
-	}	
+	}
 }
