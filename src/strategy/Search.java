@@ -30,22 +30,25 @@ public class Search {
 		현재 감시되는 전략이 있다면 각 통신ID에 대응되는 새로운 일련번호를 리턴한다.*/		 
 		stgalert = test.CpSysDib.ClassFactory.createCssAlert();//현재 종목검색 전략에 대한 종목들의 진입/퇴출 등 발생 신호에 대한 정보를 가져온다.
 	}	
-	
+	public void go(){
+		
+	}
 	public ArrayList<Object> getHvalStglist(){
 		stgcount = new ArrayList<Object>();
 		stglist.blockRequest();
 		for(int i=0; i<2; i++){
 			while(stglist.getHeaderValue(i)==null) i++;
 			stgcount.add(stglist.getHeaderValue(i));			
-		}		
+		}
 		return stgcount;
 	}
 	public ArrayList<Object> getDvalStglist(int index){
 		stginfo = new ArrayList<Object>();
 		stglist.blockRequest();
 		for(int i=0; i<8; i++){
-			while(stglist.getDataValue(i, index)==null) i++;
-			stginfo.add(stglist.getDataValue(i, index));			
+			//while(stglist.getDataValue(i, index)==null) i++;
+			Object a = stglist.getDataValue(i, index);
+			stginfo.add(a);			
 		}		
 		return stginfo;
 	}
@@ -58,7 +61,8 @@ public class Search {
 		stgfind.blockRequest();
 		for(int i=0; i<3; i++){
 			while(stgfind.getHeaderValue(i)==null) i++;
-			searchcount.add(stgfind.getHeaderValue(i));			
+			searchcount.add(stgfind.getHeaderValue(i));	
+			System.out.println(stgfind.getHeaderValue(i).toString());
 		}		
 		return searchcount;
 	}
@@ -96,7 +100,11 @@ public class Search {
 	public static void main(String[]args){
 		Search s = new Search();
 		ArrayList<Object> a;
-		a = s.getHvalStglist();
-		System.out.println(a.get(0));		
+		//s.go();
+		a=s.getHvalStglist();
+		//a = s.getDvalStglist(0);
+		for(int i=0; i<a.size(); i++){
+			System.out.println(a.get(i).toString());			
+		}		
 	}
 }

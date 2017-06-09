@@ -193,9 +193,10 @@ public class Inquiry {
 		od.tradeInit();		
 		accountNum =  od.getAccountNum();
 		
-		concribalance.setInputValue(0, (Object)accountNum[0]);
+		concribalance.setInputValue(0, (Object)accountNum[0].toString());
 		concribalance.setInputValue(1, (Object)gdmgcode);
-		concribalance.setInputValue(2, (Object)quirynum);		
+		concribalance.setInputValue(2, (Object)quirynum);
+		System.out.println(accountNum[0]);
 				
 		concribalance.blockRequest();		
 	}

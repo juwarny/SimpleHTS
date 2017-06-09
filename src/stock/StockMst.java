@@ -26,8 +26,13 @@ public class StockMst {
 		}
 		return stkinfo;		
 	}
+	
 	public void setvalStockmst2(String code){
 		stockmst2.setInputValue(0, (Object)code);
+	}
+	public short getHvalStockmst2(){
+		stockmst2.blockRequest();
+		return (short)stockmst2.getHeaderValue(0); 		
 	}
 	public ArrayList<Object> getDvalStockmst2(int index){
 		stkinfo2 = new ArrayList<Object>();
@@ -38,9 +43,6 @@ public class StockMst {
 		}
 		return stkinfo2;		
 	}
-	public short getHvalStockmst2(){
-		stockmst2.blockRequest();
-		return (short)stockmst2.getHeaderValue(0); 		
-	}
+	
 	
 }

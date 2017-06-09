@@ -11,7 +11,8 @@ public class OdBeforeinit {
 	
 	public OdBeforeinit(){
 		od = test.cptrade.ClassFactory.createCpTdUtil();//주문 오브젝트를 사용하기 위해 필요한 초기화 과정들을 수행한다.
-	}	
+	}
+	
 	public Object[] getAccountNum() {
 		return accountNum;
 	}
@@ -26,7 +27,7 @@ public class OdBeforeinit {
 	}			
 	public void tradeInit(){
 		if(od.tradeInit(0)==0){
-			accountNum = (Object[])od.accountNumber();
+			setAccountNum((Object[])od.accountNumber());
 		}
 		else{
 			System.out.println("정상적으로 입력되지 않았습니다.");
@@ -43,6 +44,7 @@ public class OdBeforeinit {
 				
 	}
 	public static void main(String[]args){
+		/*
 		OdBeforeinit init = new OdBeforeinit();
 		Object[] accountNum;
 		Object[] accountfilt;
@@ -57,5 +59,6 @@ public class OdBeforeinit {
 		for(int i = 0; i<accountfilt.length; i++){
 			System.out.println(accountfilt[i]);
 		}
+		*/
 	}
 }

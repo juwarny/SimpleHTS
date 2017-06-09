@@ -1,4 +1,4 @@
-package test;
+package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -40,6 +40,7 @@ import java.awt.CardLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
+
 
 public class mainScreen extends JFrame {
 
