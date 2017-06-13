@@ -6,6 +6,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import test.CpSysDib.*;
 import trade.Inquiry;
+import trade.OdBeforeinit;
 import com4j.*;
 
 public class JTableExam
@@ -71,8 +72,10 @@ public class JTableExam
 			{ "결제 잔고수량", "체결 잔고수량", "평가금액", "평가손익", "대출금액", "수익율", "D+2 예상 예수금", "잔고평가금액" };
 		
 		Inquiry concribalance = new Inquiry();
+		OdBeforeinit od = new OdBeforeinit();
+		Object[] a = od.getAccountNum();
 		
-		concribalance.setvalConcribalance("01", 14);
+		concribalance.setvalConcribalance("01", 14);		
 		Object[][] record = {concribalance.getHvalConcribalance(1).toArray()};
 		record[0][11] = null; record[0][9] = null; record[0][6] = null; record[0][0] = null;//대주금액, 대주평가금액, 수신개수, 계좌명 삭제		
 		

@@ -1,3 +1,4 @@
+package stock;
 import java.util.*;
 import com4j.*;
 import test.cputil.*;
@@ -34,7 +35,7 @@ public class StockCode {
 	public long GetPriceUnit(String code, int basePrice, boolean directionUp){
 		return stcode.getPriceUnit(code, basePrice, directionUp);	
 	}
-	public ArrayList<Object[]> getStockList(){//수정좀 해야됨
+	public ArrayList<Object[]> getStockList(){
 		stlist = new ArrayList<Object[]>();
 		fieldvalue = new ArrayList<Object>();
 		for(int i=0; i<stcode.getCount(); i++)
@@ -47,5 +48,5 @@ public class StockCode {
 			fieldvalue.removeAll(fieldvalue);
 		}
 		return stlist;
-	}
+	}	
 }

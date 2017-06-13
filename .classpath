@@ -14,5 +14,6 @@
 	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/gral-0.11/gral-examples-0.11.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Juwarny/AppData/Local/Continuum/Anaconda3-32/share/py4j/py4j0.10.5.jar"/>
 	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/swingx-1.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

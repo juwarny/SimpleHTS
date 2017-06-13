@@ -22,20 +22,27 @@ public class Inorder {
 		inodcancle = test.cptrade.ClassFactory.createCpTd0314();//장내 주문취소
 		inodtypeccl = test.cptrade.ClassFactory.createCpTd0303();//장내 주문 유형 정정
 	}
-	public void setvalInod(String sb, String gdmgcode, String code, long quan, long unitprice, String callcode){
+	public void setvalInod(String sb, String accountNum, String gdmgcode, String code, long quan, long unitprice, String callcode){
+		/*
 		od = new OdBeforeinit();
 		od.tradeInit();		
 		accountNum =  od.getAccountNum();
-		
-		inod.setInputValue(0, (Object)sb);
-		inod.setInputValue(1, (Object)accountNum[0]);
+		*/
+		if(sb == "매도"){
+			inodcredit.setInputValue(0, (Object)"1");
+		}
+		else if(sb == "매수"){
+			inodcredit.setInputValue(0, (Object)"2");
+		}
+		else{}
+		inod.setInputValue(1, (Object)accountNum);
 		inod.setInputValue(2, (Object)gdmgcode);
 		inod.setInputValue(3, (Object)code);
 		inod.setInputValue(4, (Object)quan);
 		inod.setInputValue(5, (Object)unitprice);
 		inod.setInputValue(7, (Object)0);
-		inod.setInputValue(8, (Object)callcode);
-		inod.blockRequest();
+		inod.setInputValue(8, (Object)callcode);//0이 보통
+		//inod.blockRequest();
 		/*
 		'주문 결과와 주문결과 메시지를 얻어옵니다
 	    MsgBox "GetDibStatus:" + CStr(m_0311.GetDibStatus) + " GetDibMsg1:" + m_0311.GetDibMsg1
@@ -56,20 +63,27 @@ public class Inorder {
 		return orderinfo;
 	}
 	
-	public void setvalInodcredit(String sb, String gdmgcode, String code, long quan, long unitprice, String callcode, long loanperiod ){
-		od = new OdBeforeinit();
-		od.tradeInit();		
-		accountNum =  od.getAccountNum();
+	public void setvalInodcredit(String sb, String accountNum, String gdmgcode, String code, long quan, long unitprice, String callcode, long loanperiod ){
+		//od = new OdBeforeinit();
+		//od.tradeInit();		
+		//accountNum = od.getAccountNum();
 		
-		inodcredit.setInputValue(0, (Object)sb);
-		inodcredit.setInputValue(1, (Object)accountNum[0]);
+		if(sb == "매도"){
+			inodcredit.setInputValue(0, (Object)"1");
+		}
+		else if(sb == "매수"){
+			inodcredit.setInputValue(0, (Object)"2");
+		}
+		else{}
+		
+		inodcredit.setInputValue(1, (Object)accountNum);
 		inodcredit.setInputValue(2, (Object)gdmgcode);
 		inodcredit.setInputValue(3, (Object)code);
 		inodcredit.setInputValue(4, (Object)quan);
 		inodcredit.setInputValue(5, (Object)unitprice);
 		inodcredit.setInputValue(7, (Object)0);
 		inodcredit.setInputValue(8, (Object)callcode);
-		if(sb == "1")
+		if(sb == "매도")
 		{
 			inodcredit.setInputValue(9, (Object)loanperiod);
 		}

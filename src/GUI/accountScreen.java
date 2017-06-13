@@ -45,11 +45,14 @@ import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
 import trade.*;
 import java.awt.Scrollbar;
+import java.awt.FlowLayout;
 
 public class accountScreen extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private JPanel panel;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
@@ -82,8 +85,15 @@ public class accountScreen extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane);
 		
-		table = new JTable(getTableModel());
-		tabbedPane.addTab("체결기준 잔고 조회/평가", null, table, null);
+		panel = new JPanel();
+		tabbedPane.addTab("New tab", null, panel, null);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		table = new JTable(getTableModel());		
+		panel.add(table);
+		
+		scrollPane = new JScrollPane();
+		tabbedPane.addTab("New tab", null, scrollPane, null);
 		
 		//JScrollPane jScollPane = new JScrollPane(table);
 	}

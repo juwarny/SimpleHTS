@@ -44,18 +44,18 @@ public class Inquiry {
 		return quiryinfo;
 	}
 	
-	public void setvalPurchase(String gdmgcode, String code, String callcode, long unitprice, String recimarginYN, String quirycode ){
-		od = new OdBeforeinit();
-		od.tradeInit();		
-		accountNum =  od.getAccountNum();
+	public void setvalPurchase(String accountNum, String gdmgcode, String code, String callcode, long unitprice, int recimarginYN, int quirycode ){
+		//od = new OdBeforeinit();
+		//od.tradeInit();		
+		//accountNum =  od.getAccountNum();
 		
-		purchaseavail.setInputValue(0, (Object)accountNum[0]);
+		purchaseavail.setInputValue(0, (Object)accountNum);
 		purchaseavail.setInputValue(1, (Object)gdmgcode);
 		purchaseavail.setInputValue(2, (Object)code);
 		purchaseavail.setInputValue(3, (Object)callcode);		
 		purchaseavail.setInputValue(5, (Object)recimarginYN);
 		purchaseavail.setInputValue(6, (Object)quirycode);
-		if(quirycode == "2"){
+		if(quirycode == '2'){
 			purchaseavail.setInputValue(4, (Object)unitprice);
 		}
 		purchaseavail.blockRequest();		
@@ -196,7 +196,7 @@ public class Inquiry {
 		concribalance.setInputValue(0, (Object)accountNum[0].toString());
 		concribalance.setInputValue(1, (Object)gdmgcode);
 		concribalance.setInputValue(2, (Object)quirynum);
-		System.out.println(accountNum[0]);
+		//System.out.println(accountNum[0]);
 				
 		concribalance.blockRequest();		
 	}
