@@ -74,6 +74,7 @@ public class orderScreen extends JFrame {
 	private StockMst stm;	
 	private ArrayList<Object[]> stclist;
 	private ArrayList<String> stclist_name;
+	private ArrayList<String> stclist_name_possible;
 	private Long price_before;
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane;
@@ -90,6 +91,7 @@ public class orderScreen extends JFrame {
 	private JLabel label_4;
 	private AutoSuggest itemCode_comboBoxs;
 	private Inquiry possible;
+	//private
 	/**
 	 * Launch the application.
 	 */
@@ -115,6 +117,8 @@ public class orderScreen extends JFrame {
 		stclist = stc.getStockList();
 		possible = new Inquiry();
 		price_before = Integer.toUnsignedLong(0);
+		stclist_name = new ArrayList<String>();
+		stclist_name_possible = new ArrayList<String>();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 755, 518);
@@ -139,6 +143,8 @@ public class orderScreen extends JFrame {
 		sellbuy_comboBox = new JComboBox();
 		sellbuy_comboBox.addItem("매수");
 		sellbuy_comboBox.addItem("매도");
+		SellBuyChangeListener sbListener = new SellBuyChangeListener();
+		sellbuy_comboBox.addItemListener(sbListener);;
 		panel.add(sellbuy_comboBox);
 		
 		label = new JLabel("계좌번호");
@@ -156,7 +162,7 @@ public class orderScreen extends JFrame {
 		panel.add(label_1);		
 		
 			
-		stclist_name = new ArrayList<String>();
+		
 		insert_ItemCode_Combobox(stclist);		
 		itemCode_comboBoxs = new AutoSuggest(stclist_name.toArray());
 		itemCode_comboBoxs.setEditable(true);
@@ -192,6 +198,7 @@ public class orderScreen extends JFrame {
 		panel.add(orderUnitPrice_spinner);
 		
 		label_4 = new JLabel("총 합계 :");
+		label_4.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label_4.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(label_4);
 		
@@ -210,12 +217,43 @@ public class orderScreen extends JFrame {
 			accountNum_comboBox.addItem(a[i]);
 		}	
 	}
-	public void insert_ItemCode_Combobox(ArrayList<Object[]> stclist){		
+	public void insert_ItemCode_Combobox(ArrayList<Object[]> stclist){
+		stclist_name = new ArrayList<String>();		
 		for(int i=0; i<stclist.size(); i++){
 			stclist_name.add(stclist.get(i)[1].toString());
 		}	
 	}
+	public void insert_SellItem_Combobox(){
+		stclist_name_possible = new ArrayList<String>();
+		possible.setvalSella((String)accountNum_comboBox.getSelectedItem(), "10", "", '1', '1', "", "00", "", '0', "00", 20);
+		int count = possible.getHvalSella().intValue();
+		System.out.println(count);
+		for(int i=0; i<count; i++){
+			stclist_name_possible.add(possible.getDvalSella(i).get(1).toString());
+		}				
+	}
 	
+	/*리스너*/
+	
+	
+	
+	public class SellBuyChangeListener implements ItemListener{
+		public void itemStateChanged(ItemEvent e) {
+			if(e.getItem()=="매수"){
+				itemCode_comboBoxs = new AutoSuggest(stclist_name.toArray());
+				itemCode_comboBoxs.setEditable(true);
+				ItemCodeListener itemcodeListener = new ItemCodeListener();		
+				itemCode_comboBoxs.addItemListener(itemcodeListener);
+			}				
+			else{
+				insert_SellItem_Combobox();
+				itemCode_comboBoxs = new AutoSuggest(stclist_name_possible.toArray());
+				itemCode_comboBoxs.setEditable(true);
+				ItemCodeListener itemcodeListener = new ItemCodeListener();		
+				itemCode_comboBoxs.addItemListener(itemcodeListener);
+			}
+		}
+	}	
 	public class OrderActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			Inorder oder = new Inorder();
@@ -226,42 +264,58 @@ public class orderScreen extends JFrame {
 	}
 	public class PriceChangeListener implements ChangeListener{
 		public void stateChanged(ChangeEvent e) {				
-				Long a = Long.parseUnsignedLong(orderUnitPrice_spinner.getValue().toString());
-				String s = stc.NameToCode((String)itemCode_comboBoxs.getSelectedItem());
-				Long unit_up = stc.GetPriceUnit(s, price_before.intValue(), true);
-				Long unit_down = stc.GetPriceUnit(s, price_before.intValue(), false);
-				if(price_before!=Integer.toUnsignedLong(0)){
-					if(a>price_before){
-						orderUnitPrice_spinner.setModel(new SpinnerNumberModel(new Long(price_before+unit_up), null, null, new Long(unit_up)));
-						price_before+=unit_up;
-					}					
-					else if(a<price_before){
-						orderUnitPrice_spinner.setModel(new SpinnerNumberModel(new Long(price_before-unit_down), null, null, new Long(unit_down)));
-						price_before-=unit_down;
-					}		
+			Long a = Long.parseUnsignedLong(orderUnitPrice_spinner.getValue().toString());
+			String s = stc.NameToCode((String)itemCode_comboBoxs.getSelectedItem());
+			Long unit_up = stc.GetPriceUnit(s, price_before.intValue(), true);
+			Long unit_down = stc.GetPriceUnit(s, price_before.intValue(), false);
+			if(price_before!=Integer.toUnsignedLong(0)){
+				if(a>price_before){
+					orderUnitPrice_spinner.setModel(new SpinnerNumberModel(new Long(price_before+unit_up), null, null, new Long(unit_up)));
+					price_before+=unit_up;
 				}					
+				else if(a<price_before){
+					orderUnitPrice_spinner.setModel(new SpinnerNumberModel(new Long(price_before-unit_down), null, null, new Long(unit_down)));
+					price_before-=unit_down;
+				}		
+			}
+			Long total = Long.parseUnsignedLong(orderUnitPrice_spinner.getValue().toString())*Long.parseUnsignedLong(orderQuan_spinner.getValue().toString());
+			String str = String.format("%,d 원", total);
+			label_4.setText("총 합계 : "+str);
 		}
 	}
 	public class QuanChangeListener implements ChangeListener{
 		public void stateChanged(ChangeEvent e) {				
-							
+			 Long total = Long.parseUnsignedLong(orderUnitPrice_spinner.getValue().toString())*Long.parseUnsignedLong(orderQuan_spinner.getValue().toString());
+			 String str = String.format("%,d 원", total);
+			 label_4.setText("총 합계 : "+str);
 		}
 	}
 	public class ItemCodeListener implements ItemListener{
 		public void itemStateChanged(ItemEvent e) {
 			 if (e.getStateChange() == ItemEvent.SELECTED) {
 				 try{					 	
-					 	if(stc.NameToCode(e.getItem().toString()) != ""){
+					 	if(stc.NameToCode(e.getItem().toString()) != "" && sellbuy_comboBox.getSelectedItem()=="매수"){
 					 		String s = stc.NameToCode(e.getItem().toString());
 							stm.setvalStockmst2(s);
 							price_before = Long.parseUnsignedLong(stm.getDvalStockmst2(0).get(3).toString());// 현재가 입력
 							orderUnitPrice_spinner.setValue(price_before);
-							System.out.println(price_before);
+							//System.out.println(price_before);
 							possible.setvalPurchase((String)accountNum_comboBox.getSelectedItem(), "10", s, "01", price_before, 'N', '2');
 							orderQuan_spinner.setValue(possible.getvalPurchase().get(18));
 							orderUnitPrice_spinner.setEnabled(true);
 							orderQuan_spinner.setEnabled(true);
-					 	}					 	
+					 	}
+					 	else if(stc.NameToCode(e.getItem().toString()) != "" && sellbuy_comboBox.getSelectedItem()=="매도"){
+					 		String s = stc.NameToCode(e.getItem().toString());
+							stm.setvalStockmst2(s);
+							price_before = Long.parseUnsignedLong(stm.getDvalStockmst2(0).get(3).toString());// 현재가 입력
+							orderUnitPrice_spinner.setValue(price_before);
+							//System.out.println(price_before);							
+							possible.setvalSella((String)accountNum_comboBox.getSelectedItem(), "10", s, '1', '1', "", "00", "", '0', "00", 1);
+							orderQuan_spinner.setValue(possible.getDvalSella(0).get(12));
+							orderUnitPrice_spinner.setEnabled(true);
+							orderQuan_spinner.setEnabled(true);
+					 	}
 					}catch(Exception ex){
 						ex.printStackTrace();
 					}			        

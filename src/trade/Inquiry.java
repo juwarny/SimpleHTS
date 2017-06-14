@@ -1,5 +1,6 @@
 package trade;
 
+import java.lang.invoke.SerializedLambda;
 import java.util.ArrayList;
 import com4j.*;
 import test.cptrade.*;
@@ -70,14 +71,14 @@ public class Inquiry {
 		return quiryinfo;
 	}
 	
-	public void setvalSella(String gdmgcode, String code, String stbdcode, String cacrdcode, 
+	public void setvalSella(String accountNum, String gdmgcode, String code, int stbdcode, int cacrdcode, 
 							String datecrdloan, String crdloancode, String purdate, 
-							String stbdbalcode, String taxcode, long quirynum ){
-		od = new OdBeforeinit();
-		od.tradeInit();		
-		accountNum =  od.getAccountNum();
+							int stbdbalcode, String taxcode, long quirynum ){
+		//od = new OdBeforeinit();
+		//od.tradeInit();		
+		//accountNum =  od.getAccountNum();
 		
-		sellableavail.setInputValue(0, (Object)accountNum[0]);
+		sellableavail.setInputValue(0, (Object)accountNum);
 		sellableavail.setInputValue(1, (Object)gdmgcode);
 		sellableavail.setInputValue(2, (Object)code);
 		sellableavail.setInputValue(3, (Object)stbdcode);		
@@ -91,14 +92,18 @@ public class Inquiry {
 		
 		sellableavail.blockRequest();		
 	}
-	public ArrayList<Object> getvalSella(){
+	public ArrayList<Object> getDvalSella(int index){
 		quiryinfo = new ArrayList<Object>();
 		sellableavail.blockRequest();
 		for(int i=0; i<19; i++){
-			while(sellableavail.getHeaderValue(i)==null) i++;
+			while(sellableavail.getDataValue(i, index)==null) i++;
 			quiryinfo.add(sellableavail.getHeaderValue(i));			
 		}		
 		return quiryinfo;
+	}
+	public Long getHvalSella(){
+		sellableavail.blockRequest();
+		return Long.parseLong(sellableavail.getHeaderValue(0).toString());
 	}
 	
 	public void setvalDayNconclud(String gdmgcode, String code, String callcode, String sortcode, String qrclosecode, long quirynum ){
