@@ -52,7 +52,7 @@ public class accountScreen extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private JPanel panel;
-	private JScrollPane scrollPane;
+	private ArrayList<Object> records;
 
 	/**
 	 * Launch the application.
@@ -87,29 +87,37 @@ public class accountScreen extends JFrame {
 		
 		panel = new JPanel();
 		tabbedPane.addTab("New tab", null, panel, null);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		table = new JTable(getTableModel());		
 		panel.add(table);
-		
-		scrollPane = new JScrollPane();
-		tabbedPane.addTab("New tab", null, scrollPane, null);
 		
 		//JScrollPane jScollPane = new JScrollPane(table);
 	}
 	
 	public DefaultTableModel getTableModel(){		
 		String columnNames[] =
-			{ "결제 잔고수량", "체결 잔고수량", "평가금액", "평가손익", "대출금액", "수익율", "D+2 예상 예수금", "잔고평가금액" };
+			{ "결제 잔고수량", "체결 잔고수량", "평가금액", "평가손익", "수익율", "D+2 예상 예수금", "잔고평가금액"};
 		
 		Inquiry concribalance = new Inquiry();
-		
+		records = new ArrayList<Object>();
 		concribalance.setvalConcribalance("10", 14);
-		Object[][] record = {concribalance.getHvalConcribalance(0).toArray()};
-		record[0][11] = null; record[0][9] = null; record[0][6] = null; record[0][0] = null;//대주금액, 대주평가금액, 수신개수, 계좌명 삭제		
+		records.add(concribalance.getHvalConcribalance(0).get(1));
+		records.add(concribalance.getHvalConcribalance(0).get(2));
+		records.add(concribalance.getHvalConcribalance(0).get(3));
+		records.add(concribalance.getHvalConcribalance(0).get(4));
+		records.add(concribalance.getHvalConcribalance(0).get(6));
+		records.add(concribalance.getHvalConcribalance(0).get(8));
+		records.add(concribalance.getHvalConcribalance(0).get(9));
+		records.add(concribalance.getHvalConcribalance(0).get(11));
+
+		Object[][] datas = {records.toArray()};
+		//대주금액, 대주평가금액, 수신개수, 계좌명 삭제		
 		
-		DefaultTableModel defaultTableModel = new DefaultTableModel(record, columnNames); //DefaultTableModel을 선언하고 데이터 담기		
-		
+		DefaultTableModel defaultTableModel = new DefaultTableModel(datas, columnNames); //DefaultTableModel을 선언하고 데이터 담기		
+		for(Object j : concribalance.getHvalConcribalance(1)){
+			System.out.println(j);
+		}
 		return defaultTableModel;
 	}
 }

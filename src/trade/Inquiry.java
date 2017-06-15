@@ -201,7 +201,7 @@ public class Inquiry {
 		od.tradeInit();		
 		accountNum =  od.getAccountNum();
 		
-		concribalance.setInputValue(0, (Object)accountNum[0].toString());
+		concribalance.setInputValue(0, (Object)accountNum[0]);
 		concribalance.setInputValue(1, (Object)gdmgcode);
 		concribalance.setInputValue(2, (Object)quirynum);
 		//System.out.println(accountNum[0]);
@@ -210,7 +210,7 @@ public class Inquiry {
 	}
 	public ArrayList<Object> getHvalConcribalance(int conti){
 		quiryinfo = new ArrayList<Object>();
-		concribalance._continue(conti);
+		//concribalance._continue(conti);
 		concribalance.blockRequest();
 		for(int i=0; i<13; i++){
 			while(concribalance.getHeaderValue(i)==null) i++;
