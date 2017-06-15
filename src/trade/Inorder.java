@@ -29,10 +29,10 @@ public class Inorder {
 		accountNum =  od.getAccountNum();
 		*/
 		if(sb == "매도"){
-			inodcredit.setInputValue(0, (Object)"1");
+			inod.setInputValue(0, (Object)"1");
 		}
 		else if(sb == "매수"){
-			inodcredit.setInputValue(0, (Object)"2");
+			inod.setInputValue(0, (Object)"2");
 		}
 		else{}
 		inod.setInputValue(1, (Object)accountNum);
@@ -42,7 +42,7 @@ public class Inorder {
 		inod.setInputValue(5, (Object)unitprice);
 		inod.setInputValue(7, (Object)0);
 		inod.setInputValue(8, (Object)callcode);//0이 보통
-		//inod.blockRequest();
+		inod.blockRequest();
 		/*
 		'주문 결과와 주문결과 메시지를 얻어옵니다
 	    MsgBox "GetDibStatus:" + CStr(m_0311.GetDibStatus) + " GetDibMsg1:" + m_0311.GetDibMsg1
@@ -108,13 +108,13 @@ public class Inorder {
 		return orderinfo;
 	}
 	
-	public void setvalInodAlter(long ordercode, String gdmgcode, String code, long quan, long unitprice){
-		od = new OdBeforeinit();
-		od.tradeInit();		
-		accountNum =  od.getAccountNum();
+	public void setvalInodAlter(long ordercode, String accountNum, String gdmgcode, String code, long quan, long unitprice){
+		//od = new OdBeforeinit();
+		//od.tradeInit();		
+		//accountNum =  od.getAccountNum();
 		
 		inodalter.setInputValue(1, (Object)ordercode);
-		inodalter.setInputValue(2, (Object)accountNum[0]);
+		inodalter.setInputValue(2, (Object)accountNum);
 		inodalter.setInputValue(3, (Object)gdmgcode);
 		inodalter.setInputValue(4, (Object)code);
 		inodalter.setInputValue(5, (Object)quan);
@@ -140,13 +140,13 @@ public class Inorder {
 		return orderinfo;
 	}
 	
-	public void setvalInodCancle(long ordercode, String gdmgcode, String code, long quan, long unitprice, String callcode){
-		od = new OdBeforeinit();
-		od.tradeInit();		
-		accountNum =  od.getAccountNum();
+	public void setvalInodCancle(long ordercode, String accountNum, String gdmgcode, String code, long quan){
+		//od = new OdBeforeinit();
+		//od.tradeInit();		
+		//accountNum =  od.getAccountNum();
 		
 		inodcancle.setInputValue(1, (Object)ordercode);
-		inodcancle.setInputValue(2, (Object)accountNum[0]);
+		inodcancle.setInputValue(2, (Object)accountNum);
 		inodcancle.setInputValue(3, (Object)gdmgcode);
 		inodcancle.setInputValue(4, (Object)code);
 		inodcancle.setInputValue(5, (Object)quan);			

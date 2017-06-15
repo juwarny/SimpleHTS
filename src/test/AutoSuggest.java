@@ -27,10 +27,16 @@ public class AutoSuggest extends JComboBox {
     private int widestLengh = 0;
     private boolean wide = false;
     private boolean hide_flag = false;
-
+    private Object[] tags;
+    
+    
+    public void settags(Object[] tags){
+    	this.tags = tags;
+    }
+    
     public AutoSuggest(Object[] tags) {
         setEditable(true);
-
+        settags(tags);
         tf = (JTextField) getEditor().getEditorComponent();
         tf.addFocusListener(new FocusAdapter() {
             @Override

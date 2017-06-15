@@ -22,7 +22,7 @@ public class Inquiry {
 		stpaydeposit = test.cptrade.ClassFactory.createCpTd0732(); //주식 결제예정 예수금 조회
 		purchaseavail = test.cptrade.ClassFactory.createCpTdNew5331A();//매수 주문 가능 금액/수량 조회
 		sellableavail = test.cptrade.ClassFactory.createCpTdNew5331B();//매도 주문 가능 수량조회 
-		dayNconclud = test.cptrade.ClassFactory.createCpTd5339();//금일 미체결내역 상세조회
+		dayNconclud = test.cptrade.ClassFactory.createCpTd5339();//미체결내역 상세조회
 		dayconclud = test.cptrade.ClassFactory.createCpTd5341();//금일의 주문/체결내역 상세조회
 		ytdayconcri = test.cptrade.ClassFactory.createCpTd5342();//금일/전일의 종목별 체결기준 조회
 		concribalance = test.cptrade.ClassFactory.createCpTd6033();//체결기준 잔고조회
@@ -97,7 +97,7 @@ public class Inquiry {
 		sellableavail.blockRequest();
 		for(int i=0; i<19; i++){
 			while(sellableavail.getDataValue(i, index)==null) i++;
-			quiryinfo.add(sellableavail.getHeaderValue(i));			
+			quiryinfo.add(sellableavail.getDataValue(i, index));			
 		}		
 		return quiryinfo;
 	}
@@ -106,12 +106,12 @@ public class Inquiry {
 		return Long.parseLong(sellableavail.getHeaderValue(0).toString());
 	}
 	
-	public void setvalDayNconclud(String gdmgcode, String code, String callcode, String sortcode, String qrclosecode, long quirynum ){
-		od = new OdBeforeinit();
-		od.tradeInit();		
-		accountNum =  od.getAccountNum();
+	public void setvalDayNconclud(String accountNum, String gdmgcode, String code, String callcode, String sortcode, String qrclosecode, Long quirynum ){
+		//od = new OdBeforeinit();
+		//od.tradeInit();		
+		//accountNum =  od.getAccountNum();
 		
-		dayNconclud.setInputValue(0, (Object)accountNum[0]);
+		dayNconclud.setInputValue(0, (Object)accountNum);
 		dayNconclud.setInputValue(1, (Object)gdmgcode);
 		dayNconclud.setInputValue(3, (Object)code);		
 		dayNconclud.setInputValue(4, (Object)callcode);
@@ -121,13 +121,16 @@ public class Inquiry {
 
 		dayNconclud.blockRequest();		
 	}
-	public ArrayList<Object> getvalDayNconclud(int conti){
+	public Long getHvalDayNconclud(){
+		return Long.parseLong(dayNconclud.getHeaderValue(5).toString());
+	}
+	public ArrayList<Object> getDvalDayNconclud(int index){
 		quiryinfo = new ArrayList<Object>();
-		dayNconclud._continue(conti);
+		//dayNconclud._continue(0);
 		dayNconclud.blockRequest();
 		for(int i=0; i<29; i++){
-			while(dayNconclud.getHeaderValue(i)==null) i++;
-			quiryinfo.add(dayNconclud.getHeaderValue(i));			
+			while(dayNconclud.getDataValue(i, index)==null) i++;
+			quiryinfo.add(dayNconclud.getDataValue(i, index));			
 		}		
 		return quiryinfo;
 	}
