@@ -9,6 +9,7 @@ public class StockChart {
 	private long ulong;	
 	private ArrayList<Object> getlist;
 	private ArrayList<Object> getfield;
+	private ArrayList<Object[]> series;
 	public StockChart(){
 		stkchart = test.CpSysDib.ClassFactory.createStockChart();
 	}
@@ -57,19 +58,21 @@ public class StockChart {
 		}		
 		return getlist;		
 	}
-	public ArrayList<Object> getDvalStkchart(int counts){
+	public ArrayList<Object[]> getDvalStkchart(int counts){
 		stkchart.blockRequest();
-		getlist = new ArrayList<Object>();
-		getfield = new ArrayList<Object>();
+		series = new ArrayList<Object[]>();
+		
+		int fields_num = Integer.parseInt(getHvalStkchart().get(1).toString());
+		
 		for(int i=0; i<counts; i++){
-			while(stkchart.getHeaderValue(i)==null) i++;
-			for(int j=0; j<6; j++){
+			getfield = new ArrayList<Object>();
+			for(int j=0; j<fields_num; j++){
 				getfield.add(stkchart.getDataValue(j, i));
-				System.out.println(stkchart.getDataValue(j, i).toString());
+				//System.out.println(stkchart.getDataValue(j, i).toString());
 			}
-			getlist.add(getfield);
+			series.add(getfield.toArray());
 		}		
-		return getlist;		
+		return series;		
 	}
 	
 	public static void main(String[] args){
@@ -84,12 +87,13 @@ public class StockChart {
 		a.add(5);
 		
 		
-		stc.setvalStkchart("A003540", 50, "1000", a, 'm', '0', '1', '3');
+		stc.setvalStkchart("A003540", '2', "1000", a, 'm', '0', '1', '3');
 		getlist = stc.getHvalStkchart();
+		/*
 		for(int i=0; i<getlist.size(); i++){
 			System.out.println(getlist.get(i).toString());
 		}
-		
+		*/
 		Object[] s = (Object[])getlist.get(2);
 		for(int i=0; i<s.length; i++){
 			System.out.println(s[i]);
