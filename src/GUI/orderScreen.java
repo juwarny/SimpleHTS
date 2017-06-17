@@ -13,6 +13,10 @@ import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.ContainerEvent;
+import java.awt.event.ContainerListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
@@ -74,7 +78,8 @@ public class orderScreen extends JFrame {
 	private JTabbedPane tabbedPane;
 	private sellbuyOrder sellbuy_panel;
 	private cancelalterOrder alter_panel;
-	
+	private chartScreen chart_panel;
+	private UpdateListener update;
 	/**
 	 * Launch the application.
 	 */
@@ -103,6 +108,9 @@ public class orderScreen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 		
+		update = new UpdateListener();
+		addContainerListener(update);
+		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane);
 		
@@ -110,7 +118,32 @@ public class orderScreen extends JFrame {
 		tabbedPane.addTab("주문 신청(현금)", null, sellbuy_panel, null);
 			
 		alter_panel = new cancelalterOrder();
-		tabbedPane.addTab("주문 정정/취소", null, alter_panel, null);			
-	}		
+		tabbedPane.addTab("주문 정정/취소", null, alter_panel, null);
+		
+		chart_panel = new chartScreen();
+		tabbedPane.addTab("차트", null, chart_panel, null);	
+		
+	}
+	public class UpdateListener implements ContainerListener{
+
+		@Override
+		public void componentAdded(ContainerEvent e) {
+			tabbedPane.addTab("차트", null, chart_panel, null);	
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void componentRemoved(ContainerEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		
+		
+	}
+	
+
+		
 
 }

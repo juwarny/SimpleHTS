@@ -68,7 +68,7 @@ public class StockChart {
 			getfield = new ArrayList<Object>();
 			for(int j=0; j<fields_num; j++){
 				getfield.add(stkchart.getDataValue(j, i));
-				//System.out.println(stkchart.getDataValue(j, i).toString());
+				System.out.println(stkchart.getDataValue(j, i).toString());
 			}
 			series.add(getfield.toArray());
 		}		
