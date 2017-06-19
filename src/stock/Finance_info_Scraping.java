@@ -1,7 +1,12 @@
 package stock;
 
+import java.awt.Image;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
 
 import org.jsoup.Jsoup; //import Jsoup
 import org.jsoup.nodes.Document;  //import Jsoup
@@ -15,9 +20,16 @@ public class Finance_info_Scraping {
 	private ArrayList<String> col_name;
 	private ArrayList<String> data;
 	private ArrayList<Object[]> record;
-
-
+	private ImageIcon logo_image;
+	private ArrayList<String> name_and_class;
+	private String itemcode;
 	
+	public Finance_info_Scraping(String code){
+		itemcode = code;
+	}
+	public void setItemcode(String code){
+		itemcode = code;
+	}	
 	public ArrayList<String> getCol_name(){
 		return col_name;
 	}	
@@ -26,6 +38,12 @@ public class Finance_info_Scraping {
 	}
 	public ArrayList<Object[]> getRecord() {
 		return record;
+	}
+	public ArrayList<String> getName_and_class(){
+		return name_and_class;
+	}	
+	public ImageIcon getLogo_image() {
+		return logo_image;
 	}
 
 	
@@ -42,12 +60,48 @@ public class Finance_info_Scraping {
 		link_back = "&nav=4&header=N";
 		link = link_front + code + link_back;
 	}
-	
-	public void setSummaryTableData(String code){
+	public void setName_and_class(){
+		setFinnaceinfo(itemcode);
+		name_and_class = new ArrayList<String>();
+		Document doc = null;
+		try {
+			doc = Jsoup.connect(link).get();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Element info = doc.select("div.cot p strong").first();
+		name_and_class.add(info.text());
+		info = doc.select("div.cot p span.en").first();
+		name_and_class.add(info.text());
+		info = doc.select("div.cot p.cot_tx").first();
+		name_and_class.add(info.text());
+	}
+	public void setLogo(){
+		setFinnaceinfo(itemcode);
+		Document doc = null;
+		try {
+			doc = Jsoup.connect(link).get();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Element imageElement = doc.select("table.logo tbody tr td img").first();
+		 
+		try {
+			URL s = new URL(imageElement.absUrl("src"));
+			logo_image = new ImageIcon(s);
+			System.out.println(s);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+	public void setSummaryTableData(){
 		col_name = new ArrayList<String>();
 		data = new ArrayList<String>();
 		
-		setSummary(code);
+		setSummary(itemcode);
 		Document doc = null;
 		
 		try {
@@ -66,15 +120,15 @@ public class Finance_info_Scraping {
 		    col_name.add(name.get(0).text());
 		    data.add(cols.get(0).text());
 		}
-	}
+	}	
 	
-	public void setFinanceTableData(String code){
+	public void setFinanceTableData(){
 		col_name = new ArrayList<String>();
 		
 		record = new ArrayList<Object[]>(); 
 		String option = null;
 		
-		setFinnaceinfo(code);
+		setFinnaceinfo(itemcode);
 		Document doc = null;
 		
 		try {
@@ -127,7 +181,7 @@ public class Finance_info_Scraping {
 	
 	
 	public static void main(String[]args){
-		Finance_info_Scraping a = new Finance_info_Scraping();
-		a.setFinanceTableData("A225530");
+		Finance_info_Scraping a = new Finance_info_Scraping("A225530");
+		a.setFinanceTableData();
 	}
 }

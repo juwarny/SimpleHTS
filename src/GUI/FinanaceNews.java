@@ -39,7 +39,7 @@ import org.eclipse.swt.widgets.TabItem;
  * @author www.zuidaima.com
  *
  */
-public class FinanaceInfo {// 탭 브라우저 기반 식
+public class FinanaceNews {// 탭 브라우저 기반 식
 
 	private volatile String newUrl = null;// 최신 입력 링크
 	private volatile boolean loadCompleted = false;// 현재 페이지 표시 완전히 가져오기
@@ -56,8 +56,8 @@ public class FinanaceInfo {// 탭 브라우저 기반 식
 	 * 브라우저 설정 매개 변수
 	 */
 	private String homePage;// 브라우저를 홈페이지
-	private String address_front = "http://paxnet.moneta.co.kr/stock/stockIntro/nice/financeInfo.jsp?code=";
-	private String address_back = "&wlog_pip=T_financeInfo";
+	private String address_front = "http://news.moneta.co.kr/Service/stock/ShellList.asp?LinkID=263&NewsSetID=1696&stockcode=";
+	private String address_back = "&ModuleID=282";
 	private String code;
 			
 	/*
@@ -84,18 +84,18 @@ public class FinanaceInfo {// 탭 브라우저 기반 식
 	 * 
 	 * @param args
 	 */
-	/*
+	
 	public static void main(String[] args) {
 		try {
-			Liulanqi window = new Liulanqi("003540");
+			FinanaceNews window = new FinanaceNews("A003540");
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	*/
-	public FinanaceInfo(String itemcode){
-		code = itemcode;
+	
+	public FinanaceNews(String itemcode){
+		code = itemcode.substring(1, itemcode.length());
 	}
 	public void setHomePage(String code){
 		homePage = address_front+code+address_back;

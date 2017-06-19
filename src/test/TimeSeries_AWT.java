@@ -1,4 +1,4 @@
-package GUI;
+package test;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,7 +10,7 @@ import javax.swing.event.*;
 
 import stock.StockCode;
 import stock.StockMst;
-import test.AutoSuggest;
+import GUI.AutoSuggest;
 import trade.Inorder;
 import trade.Inquiry;
 import trade.OdBeforeinit;

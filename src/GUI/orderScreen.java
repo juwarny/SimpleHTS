@@ -62,8 +62,7 @@ import stock.StockMst;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
-import test.AutoSuggest;
-import AutoSuggestCore.*;
+import GUI.AutoSuggest;
 import trade.*;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import javax.swing.event.ChangeListener;

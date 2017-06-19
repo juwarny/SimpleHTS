@@ -20,8 +20,10 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.SegmentedTimeline;
+import org.jfree.chart.plot.DatasetRenderingOrder;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.CandlestickRenderer;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.*;
 import org.jfree.data.time.*;
 import org.jfree.data.xy.DefaultOHLCDataset;
@@ -152,11 +154,11 @@ public class chartScreen extends JPanel {
 
 	public void setChart(OHLCDataset dataset) {
 		chart = ChartFactory.createCandlestickChart("", "Time", "Price", dataset, false);
-
+		
 		chart.setBackgroundPaint(Color.white);
 
 		// 4. Set a few custom plot features
-		XYPlot plot = (XYPlot) chart.getPlot();
+		XYPlot plot = chart.getXYPlot();
 		plot.setBackgroundPaint(Color.WHITE); // light yellow = new
 												// Color(0xffffe0)
 		plot.setDomainGridlinesVisible(true);
@@ -170,7 +172,7 @@ public class chartScreen extends JPanel {
 		((CandlestickRenderer) plot.getRenderer()).setDrawVolume(true);
 		((CandlestickRenderer) plot.getRenderer()).setUpPaint(Color.RED);
 		((CandlestickRenderer) plot.getRenderer()).setDownPaint(Color.BLUE);
-		((CandlestickRenderer) plot.getRenderer()).setBaseOutlinePaint(Color.black);
+		((CandlestickRenderer) plot.getRenderer()).setBaseOutlinePaint(Color.black);	   
 	}
 
 	public class ItemCodeListener implements ItemListener {
@@ -189,8 +191,7 @@ public class chartScreen extends JPanel {
 
 	public class Day_OptionListener implements ItemListener {
 		public void itemStateChanged(ItemEvent e) {
-			if (e.getStateChange() == ItemEvent.SELECTED) {
-				remove(chartpanel);
+			if (e.getStateChange() == ItemEvent.SELECTED) {				
 				switch (e.getItem().toString()) {
 					case "Ка": {
 						setSeries(1, 100, fields, 'm');
@@ -213,12 +214,12 @@ public class chartScreen extends JPanel {
 						setChart(insert_OHLCData());
 					}
 				}
+				remove(chartpanel);
 				chartpanel = new ChartPanel(chart);
 				add(chartpanel, BorderLayout.CENTER);
 				updateUI();
 			}
 		}
-
 	}
 
 	public static void main(String[] args) {
@@ -237,3 +238,7 @@ public class chartScreen extends JPanel {
 	}
 
 }
+
+
+
+
