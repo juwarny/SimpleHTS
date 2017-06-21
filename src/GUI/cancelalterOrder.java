@@ -38,6 +38,8 @@ public class cancelalterOrder extends JPanel{
 	private Inquiry possible;
 	private JLabel lblNewLabel_1;
 	private JComboBox odCode_comboBox;
+	private JPanel panel;
+	private Jpbid1sUpdate jpu;
 	
 	public cancelalterOrder(){
 		stc = new StockCode();
@@ -47,92 +49,101 @@ public class cancelalterOrder extends JPanel{
 		
 		
 		setLayout(new GridLayout(0, 2, 0, 0));
+			
+		CancelAlterChangeListener caListener = new CancelAlterChangeListener();;
+		OrderCodeChangeListener odcodeListener = new OrderCodeChangeListener();
+		ItemCodeListener itemcodeListener = new ItemCodeListener();		
+		QuanChangeListener quanListener = new QuanChangeListener();
+		PriceChangeListener priceListener = new PriceChangeListener();
+		OrderActionListener orderListenr = new OrderActionListener();
+		
+		panel = new JPanel();		
+		panel.setLayout(new GridLayout(0, 2, 0, 0));
+		
+				
+		lblNewLabel = new JLabel("취소/정정");
+		panel.add(lblNewLabel);
+		lblNewLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		
 		
 		cancelalter_comboBox = new JComboBox();
-		accountNum_comboBox = new JComboBox();
-		odCode_comboBox = new JComboBox();
-		itemCode_comboBoxs = new JComboBox();
-		orderQuan_spinner = new JSpinner();
-		orderUnitPrice_spinner = new JSpinner();
-		
-		insert_Accountnum_Combobox(accountNum_comboBox);
-		insert_Combobox_Info();	
-
-		
-		lblNewLabel = new JLabel("취소/정정");
-		lblNewLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblNewLabel);
+		panel.add(cancelalter_comboBox);
 		
 		cancelalter_comboBox.addItem("취소");
 		cancelalter_comboBox.addItem("정정");
-		CancelAlterChangeListener caListener = new CancelAlterChangeListener();
-		cancelalter_comboBox.addItemListener(caListener);;
-		add(cancelalter_comboBox);
 		
 		label = new JLabel("계좌번호");
+		panel.add(label);
 		label.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label);
+		accountNum_comboBox = new JComboBox();
+		panel.add(accountNum_comboBox);
 		
-		add(accountNum_comboBox);
+		
+		insert_Accountnum_Combobox(accountNum_comboBox);
+		insert_Combobox_Info();
 		
 		lblNewLabel_1 = new JLabel("원주문번호");
+		lblNewLabel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.add(lblNewLabel_1);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblNewLabel_1);
+		odCode_comboBox = new JComboBox();
+		panel.add(odCode_comboBox);
 		
 		odCode_comboBox.setEditable(false);
-		OrderCodeChangeListener odcodeListener = new OrderCodeChangeListener();
-		odCode_comboBox.addItemListener(odcodeListener);
-		add(odCode_comboBox);
 		
 		label_1 = new JLabel("종목명");
+		panel.add(label_1);
 		label_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label_1);	 			
+		itemCode_comboBoxs = new JComboBox();
+		panel.add(itemCode_comboBoxs);
 		
 		
 		itemCode_comboBoxs.setEditable(false);		
-		ItemCodeListener itemcodeListener = new ItemCodeListener();		
-		itemCode_comboBoxs.addItemListener(itemcodeListener);
-		add(itemCode_comboBoxs);
-			
 		
+			
 		label_2 = new JLabel("주문 수량");
+		panel.add(label_2);
 		label_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label_2);
+		orderQuan_spinner = new JSpinner();
+		panel.add(orderQuan_spinner);
 		
 		orderQuan_spinner.setEnabled(true);
 		orderQuan_spinner.setEditor(new JSpinner.DefaultEditor(orderQuan_spinner));
 		orderQuan_spinner.setModel(new SpinnerNumberModel(new Long(0), null, null, new Long(1)));
-		QuanChangeListener quanListener = new QuanChangeListener();
-		orderQuan_spinner.addChangeListener(quanListener);
-		add(orderQuan_spinner);
 		
 		label_3 = new JLabel("주문 단가");
+		panel.add(label_3);
 		label_3.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label_3.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label_3);
+		orderUnitPrice_spinner = new JSpinner();
+		panel.add(orderUnitPrice_spinner);
 		
 		orderUnitPrice_spinner.setEnabled(true);
 		orderUnitPrice_spinner.setEditor(new JSpinner.DefaultEditor(orderUnitPrice_spinner));
 		orderUnitPrice_spinner.setModel(new SpinnerNumberModel(new Long(0), null, null, new Long(1)));
-		PriceChangeListener priceListener = new PriceChangeListener();
-		orderUnitPrice_spinner.addChangeListener(priceListener);
-		add(orderUnitPrice_spinner);
 		
 		label_4 = new JLabel("총 합계 :");
+		panel.add(label_4);
 		label_4.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label_4.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label_4);
 		
 		JButton orderButton = new JButton("주문");
-		OrderActionListener orderListenr = new OrderActionListener();
+		panel.add(orderButton);
 		orderButton.addActionListener(orderListenr);
-		add(orderButton);
+		orderUnitPrice_spinner.addChangeListener(priceListener);
+		orderQuan_spinner.addChangeListener(quanListener);
+		itemCode_comboBoxs.addItemListener(itemcodeListener);
+		odCode_comboBox.addItemListener(odcodeListener);
+		cancelalter_comboBox.addItemListener(caListener);
+		
+		jpu = new Jpbid1sUpdate("삼성전자");
+		add(jpu, 0);
+		add(panel);
 		
 	}
 	public void insert_Accountnum_Combobox(JComboBox accountNum_comboBox){
@@ -145,7 +156,11 @@ public class cancelalterOrder extends JPanel{
 	}
 	public void insert_Combobox_Info(){
 		stclist = new ArrayList<Object[]>();
-		possible.setvalDayNconclud(accountNum_comboBox.getSelectedItem().toString(), "10", "", "0", "0", "0", Long.parseLong("1"));
+		try{
+			possible.setvalDayNconclud(accountNum_comboBox.getSelectedItem().toString(), "10", "", "0", "0", "0", Long.parseLong("1"));
+		}catch(Exception e){
+			e.printStackTrace();
+		}		
 		int count = Integer.parseInt(possible.getHvalDayNconclud().toString());
 		
 		if(count!=0){
@@ -244,6 +259,9 @@ public class cancelalterOrder extends JPanel{
 							orderUnitPrice_spinner.setEnabled(true);
 							orderQuan_spinner.setEnabled(true);				
 					 	}
+					 	remove(jpu);
+					 	jpu = new Jpbid1sUpdate(e.getItem().toString());
+						add(jpu, 0);
 					}catch(Exception ex){
 						ex.printStackTrace();
 					}			        

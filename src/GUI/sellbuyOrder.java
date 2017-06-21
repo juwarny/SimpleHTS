@@ -18,7 +18,6 @@ import trade.OdBeforeinit;
 public class sellbuyOrder extends JPanel {
 	private StockCode stc;//stock list
 	private StockMst stm;	
-	private ArrayList<Object[]> stclist;
 	private ArrayList<String> stclist_name;
 	private ArrayList<String> stclist_name_possible;
 	private Long price_before;
@@ -34,90 +33,99 @@ public class sellbuyOrder extends JPanel {
 	private JLabel label_4;
 	private AutoSuggest itemCode_comboBoxs;
 	private Inquiry possible;
-	
-	public sellbuyOrder(){
+	private JPanel panel;
+	private Jpbid1sUpdate jpu;
+
+	public sellbuyOrder(ArrayList<String> list){
 		stc = new StockCode();
 		stm = new StockMst();
-		stclist = stc.getStockList();
 		possible = new Inquiry();
 		price_before = Long.parseUnsignedLong("0");
-		stclist_name = new ArrayList<String>();
+		stclist_name = list;
 		stclist_name_possible = new ArrayList<String>();
 		
 		setLayout(new GridLayout(0, 2, 0, 0));
-		
-		lblNewLabel = new JLabel("매수/매도");
-		lblNewLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblNewLabel);
-		
-		sellbuy_comboBox = new JComboBox();
-		sellbuy_comboBox.addItem("매수");
-		sellbuy_comboBox.addItem("매도");
-		SellBuyChangeListener sbListener = new SellBuyChangeListener();
-		sellbuy_comboBox.addItemListener(sbListener);;
-		add(sellbuy_comboBox);
-		
-		label = new JLabel("계좌번호");
-		label.setBorder(new LineBorder(new Color(0, 0, 0)));
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label);
-		
-		accountNum_comboBox = new JComboBox();
-		insert_Accountnum_Combobox(accountNum_comboBox);	
-		add(accountNum_comboBox);
-		
-		label_1 = new JLabel("종목명");
-		label_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label_1);		
+		SellBuyChangeListener sbListener = new SellBuyChangeListener();;
 		
 			
 		
-		insert_ItemCode_Combobox(stclist);		
-		itemCode_comboBoxs = new AutoSuggest(stclist_name.toArray());
-		itemCode_comboBoxs.setEditable(true);
 		ItemCodeListener itemcodeListener = new ItemCodeListener();		
+		QuanChangeListener quanListener = new QuanChangeListener();
+		PriceChangeListener priceListener = new PriceChangeListener();
+		OrderActionListener orderListenr = new OrderActionListener();
+		
+		panel = new JPanel();
+		
+		panel.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		lblNewLabel = new JLabel("매수/매도");
+		panel.add(lblNewLabel);
+		lblNewLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		sellbuy_comboBox = new JComboBox();
+		panel.add(sellbuy_comboBox);
+		sellbuy_comboBox.addItem("매수");
+		sellbuy_comboBox.addItem("매도");
+		
+		label = new JLabel("계좌번호");
+		panel.add(label);
+		label.setBorder(new LineBorder(new Color(0, 0, 0)));
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		accountNum_comboBox = new JComboBox();
+		panel.add(accountNum_comboBox);
+		insert_Accountnum_Combobox(accountNum_comboBox);
+		
+		label_1 = new JLabel("종목명");
+		panel.add(label_1);
+		label_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		itemCode_comboBoxs = new AutoSuggest(stclist_name.toArray());
+		panel.add(itemCode_comboBoxs);
+		itemCode_comboBoxs.setEditable(true);
 		itemCode_comboBoxs.addItemListener(itemcodeListener);
-		add(itemCode_comboBoxs);
+		
 		
 		
 		label_2 = new JLabel("주문 수량");
+		panel.add(label_2);
 		label_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label_2);
 		
 		orderQuan_spinner = new JSpinner();
+		panel.add(orderQuan_spinner);
 		orderQuan_spinner.setEnabled(false);
 		orderQuan_spinner.setEditor(new JSpinner.DefaultEditor(orderQuan_spinner));
 		orderQuan_spinner.setModel(new SpinnerNumberModel(new Long(0), null, null, new Long(1)));
-		QuanChangeListener quanListener = new QuanChangeListener();
-		orderQuan_spinner.addChangeListener(quanListener);
-		add(orderQuan_spinner);
 		
 		label_3 = new JLabel("주문 단가");
+		panel.add(label_3);
 		label_3.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label_3.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label_3);
 		
 		orderUnitPrice_spinner = new JSpinner();
+		panel.add(orderUnitPrice_spinner);
 		orderUnitPrice_spinner.setEnabled(false);
 		orderUnitPrice_spinner.setEditor(new JSpinner.DefaultEditor(orderUnitPrice_spinner));
 		orderUnitPrice_spinner.setModel(new SpinnerNumberModel(new Long(0), null, null, new Long(1)));
-		PriceChangeListener priceListener = new PriceChangeListener();
-		orderUnitPrice_spinner.addChangeListener(priceListener);
-		add(orderUnitPrice_spinner);
 		
 		label_4 = new JLabel("총 합계 :");
+		panel.add(label_4);
 		label_4.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label_4.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label_4);
 		
 		JButton orderButton = new JButton("주문");
-		OrderActionListener orderListenr = new OrderActionListener();
+		panel.add(orderButton);
 		orderButton.addActionListener(orderListenr);
-		add(orderButton);
-	
+		orderUnitPrice_spinner.addChangeListener(priceListener);
+		orderQuan_spinner.addChangeListener(quanListener);
+		sellbuy_comboBox.addItemListener(sbListener);
+		
+		jpu = new Jpbid1sUpdate("삼성전자");
+		itemCode_comboBoxs.setSelectedIndex(100);
+		
+		add(panel);
 	}
 	public void insert_Accountnum_Combobox(JComboBox accountNum_comboBox){
 		OdBeforeinit od = new OdBeforeinit();
@@ -141,7 +149,9 @@ public class sellbuyOrder extends JPanel {
 			stclist_name_possible.add(possible.getDvalSella(i).get(1).toString());
 		}				
 	}
-	
+	public String itemName(){
+		return itemCode_comboBoxs.getSelectedItem().toString();
+	}	
 	/*리스너*/
 	
 	
@@ -227,6 +237,9 @@ public class sellbuyOrder extends JPanel {
 								orderQuan_spinner.setEnabled(true);
 							}							
 					 	}
+					 	remove(jpu);
+					 	jpu = new Jpbid1sUpdate(e.getItem().toString());
+						add(jpu, 0);					 
 					}catch(Exception ex){
 						ex.printStackTrace();
 					}			        

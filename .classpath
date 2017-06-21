@@ -34,5 +34,8 @@
 	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/joda-time-2.9.9.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/ta4j-0.8-javadoc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/ta4j-0.8-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/DJNativeSwing-SWT-1-0-2/DJNativeSwing.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/DJNativeSwing-SWT-1-0-2/DJNativeSwing-SWT.jar" sourcepath="C:/Users/Juwarny/Documents/DJNativeSwing-SWT-1-0-2"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/DJNativeSwing-SWT-1-0-2/DJNativeSwing-SWTDemo.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -13,7 +13,7 @@ public class Index {
 	}
 	public void put_IndexDefault(String index_name){
 		cpindex.put_IndexDefault((Object)index_name);
-		
+		cpindex.signalMA(MovingAverageType.mvSimple);
 	}
 	public void put_IndexKind(String index_name){
 		cpindex.put_IndexKind((Object)index_name);
@@ -45,6 +45,12 @@ public class Index {
 	public int getIndSignalResult(int item, int index){
 		return cpindex.getIndSignalResult(item, index);
 	}
-	
+	public static void main(String[]args){
+		Index c = new Index();
+		c.put_IndexKind("CCI");
+		c.put_IndexDefault("CCI");
+		c.calculate();
+		//c.get
+	}
 	
 }

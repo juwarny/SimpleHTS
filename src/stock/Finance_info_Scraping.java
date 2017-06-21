@@ -91,7 +91,6 @@ public class Finance_info_Scraping {
 		try {
 			URL s = new URL(imageElement.absUrl("src"));
 			logo_image = new ImageIcon(s);
-			System.out.println(s);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -153,7 +152,6 @@ public class Finance_info_Scraping {
 			Elements name = row.getElementsByTag("th");
 			 for(int j=0; j< name.size(); j++){
 				 col_name.add(name.get(j).text());
-				 System.out.println(name.get(j).text());
 		    }		    
 		}
 		
@@ -169,11 +167,9 @@ public class Finance_info_Scraping {
 			}else{
 				data.add(name.get(0).text());
 			}
-		    System.out.println(name.get(0).text());
 		    Elements cols = row.getElementsByTag("td");
 		    for(int j=0; j< cols.size(); j++){
 		    	 data.add(cols.get(j).text());
-		    	 System.out.println(cols.get(j).text());
 		    }
 		    record.add(data.toArray());
 		}
@@ -209,7 +205,6 @@ public class Finance_info_Scraping {
 			Elements name = row.getElementsByTag("th");
 			 for(int j=0; j< name.size(); j++){
 				 col_name.add(name.get(j).text());
-				 System.out.println(name.get(j).text());
 		    }		    
 		}
 		
@@ -225,11 +220,9 @@ public class Finance_info_Scraping {
 			}else{
 				data.add(name.get(0).text());
 			}
-		    System.out.println(name.get(0).text());
 		    Elements cols = row.getElementsByTag("td");
 		    for(int j=0; j< cols.size(); j++){
 		    	 data.add(cols.get(j).text());
-		    	 System.out.println(cols.get(j).text());
 		    }
 		    record.add(data.toArray());
 		}
@@ -266,7 +259,6 @@ public class Finance_info_Scraping {
 			Elements name = row.getElementsByTag("th");
 			 for(int j=0; j< name.size(); j++){
 				 col_name.add(name.get(j).text());
-				 System.out.println(name.get(j).text());
 		    }		    
 		}
 		
@@ -282,11 +274,9 @@ public class Finance_info_Scraping {
 			}else{
 				data.add(name.get(0).text());
 			}
-		    System.out.println(name.get(0).text());
 		    Elements cols = row.getElementsByTag("td");
 		    for(int j=0; j< cols.size(); j++){
 		    	 data.add(cols.get(j).text());
-		    	 System.out.println(cols.get(j).text());
 		    }
 		    record.add(data.toArray());
 		}
@@ -323,7 +313,6 @@ public class Finance_info_Scraping {
 			Elements name = row.getElementsByTag("th");
 			 for(int j=0; j< name.size(); j++){
 				 col_name.add(name.get(j).text());
-				 System.out.println(name.get(j).text());
 		    }		    
 		}
 		
@@ -339,11 +328,9 @@ public class Finance_info_Scraping {
 			}else{
 				data.add(name.get(0).text());
 			}
-		    System.out.println(name.get(0).text());
 		    Elements cols = row.getElementsByTag("td");
 		    for(int j=0; j< cols.size(); j++){
 		    	 data.add(cols.get(j).text());
-		    	 System.out.println(cols.get(j).text());
 		    }
 		    record.add(data.toArray());
 		}

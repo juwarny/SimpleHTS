@@ -6,6 +6,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import chrriis.common.UIUtils;
+import chrriis.dj.nativeswing.swtimpl.NativeInterface;
+import javafx.scene.control.TabPane;
+import stock.StockCode;
+
 import javax.swing.JToolBar;
 import javax.swing.JDesktopPane;
 import javax.swing.JTable;
@@ -13,6 +19,7 @@ import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
 import java.awt.Font;
@@ -40,34 +47,57 @@ import java.awt.CardLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
+import javax.swing.JTabbedPane;
+import java.awt.Dimension;
 
 
 public class mainScreen extends JFrame {
 
 	private JPanel contentPane;
-
+	private menuActionListener menulistener;
+	private JTabbedPane tabbedPane;
+	private cancelalterOrder cao;
+	private chartScreen cs;
+	private accountScreen as;
+	private FinanceNews2 fn;
+	private sellbuyOrder sbo;
+	private FinanceInfoTable fit;
+	private StockCode stc;
+	private ArrayList<Object[]> stclist;
+	private ArrayList<String> stclist_name;
+	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		UIUtils.setPreferredLookAndFeel();
+		NativeInterface.open();
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					mainScreen frame = new mainScreen();
 					frame.setVisible(true);
+					frame.setListLoading(frame);					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+		
+		NativeInterface.runEventPump();
 	}
 
 	/**
 	 * Create the frame.
 	 */
 	public mainScreen() {
+		setTitle("Simple HTS");
+		setSize(new Dimension(1280, 720));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1078, 644);
+		setBounds(100, 100, 1078, 644);		
+				
+		menulistener = new menuActionListener();		
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -76,34 +106,106 @@ public class mainScreen extends JFrame {
 		menuBar.add(accountMenu);
 		
 		JMenuItem balanceMenuItem = new JMenuItem("체결기준 잔고 조회/평가");
+		balanceMenuItem.addActionListener(menulistener);
 		accountMenu.add(balanceMenuItem);
 		
 		JMenuItem dayconcludMenuItem = new JMenuItem("금일 주문/체결 내역");
+		dayconcludMenuItem.addActionListener(menulistener);
 		accountMenu.add(dayconcludMenuItem);
+		
+		JMenu iteminfoMenu = new JMenu("종목");
+		menuBar.add(iteminfoMenu);
+		
+		JMenuItem priceMenuItem = new JMenuItem("종목 시가");
+		priceMenuItem.addActionListener(menulistener);
+		iteminfoMenu.add(priceMenuItem);
+		
+		JMenuItem financeinfoMenuItem = new JMenuItem("종목 재무정보");
+		financeinfoMenuItem.addActionListener(menulistener);
+		iteminfoMenu.add(financeinfoMenuItem);
+		
+		JMenuItem newsMenuItem = new JMenuItem("종목 뉴스");
+		newsMenuItem.addActionListener(menulistener);
+		iteminfoMenu.add(newsMenuItem);
+		
+		JMenu orderMenu = new JMenu("주문");
+		menuBar.add(orderMenu);
+		
+		JMenuItem sellbuyMenuItem = new JMenuItem("매수/매도");
+		sellbuyMenuItem.addActionListener(menulistener);
+		orderMenu.add(sellbuyMenuItem);
+		
+		JMenuItem altercancleMenuItem = new JMenuItem("정정/취소");
+		altercancleMenuItem.addActionListener(menulistener);
+		orderMenu.add(altercancleMenuItem);
 		
 		JMenu strategyMenu = new JMenu("전략");
 		menuBar.add(strategyMenu);
 		
-		JMenuItem autoOrderMenuItem = new JMenuItem("자동주문");
-		autoOrderMenuItem.setHorizontalAlignment(SwingConstants.LEFT);
-		strategyMenu.add(autoOrderMenuItem);
-		
-		JMenuItem orderMenuItem = new JMenuItem("수동주문");
-		strategyMenu.add(orderMenuItem);
-		
-		JMenuItem mntmNewMenuItem = new JMenuItem("종목조회");
-		strategyMenu.add(mntmNewMenuItem);
-		
-		JMenu settingMenu = new JMenu("설정");
-		menuBar.add(settingMenu);
-		
-		JMenu helpMenu = new JMenu("도움말");
-		menuBar.add(helpMenu);
+		JMenuItem stgsettingMenuItem = new JMenuItem("전략설정");
+		stgsettingMenuItem.addActionListener(menulistener);
+		strategyMenu.add(stgsettingMenuItem);
 		
 		contentPane = new JPanel();
+		contentPane.setAlignmentY(0.0f);
+		contentPane.setAlignmentX(0.0f);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
+		contentPane.setLayout(null);
+		
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(0, 0, 1062, 584);
+		tabbedPane.setAlignmentX(0.0f);
+		tabbedPane.setAlignmentY(0.0f);
+		contentPane.add(tabbedPane);		
+		
+	
 	}
-
+	public void setListLoading(JFrame f){		
+		
+		stc = new StockCode();
+		stclist = stc.getStockList(f);
+		insert_ItemCode_Combobox(stclist);				    
+		
+	}
+	public void insert_ItemCode_Combobox(ArrayList<Object[]> stclist){
+		stclist_name = new ArrayList<String>();		
+		for(int i=0; i<stclist.size(); i++){
+			stclist_name.add(stclist.get(i)[1].toString());
+		}	
+	}
+	public class menuActionListener implements  ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			if(e.getActionCommand().equals("체결기준 잔고 조회/평가")){
+			
+			}
+			else if(e.getActionCommand().equals("금일 주문/체결 내역")){
+				
+			}
+			else if(e.getActionCommand().equals("종목 시가")){
+				cs = new chartScreen(stclist_name);
+				tabbedPane.addTab("종목 시가", null, cs, null);
+			}
+			else if(e.getActionCommand().equals("종목 재무정보")){
+				fit = new FinanceInfoTable(stclist_name);
+				tabbedPane.addTab("종목 재무정보", null, fit, null);
+			}
+			else if(e.getActionCommand().equals("종목 뉴스")){
+				fn = new FinanceNews2("A005935", stclist_name);
+				tabbedPane.addTab("종목 뉴스", fn);	
+			}
+			else if(e.getActionCommand().equals("매수/매도")){
+				sbo = new sellbuyOrder(stclist_name);
+				tabbedPane.addTab("매수/매도", sbo);
+			}
+			else if(e.getActionCommand().equals("정정/취소")){
+				cao = new cancelalterOrder();
+				tabbedPane.addTab("정정/취소", cao);
+			}
+			else if(e.getActionCommand().equals("전략설정")){
+				
+			}			
+		}
+		
+	}
 }

@@ -38,9 +38,7 @@ import test.*;
 public class chartScreen extends JPanel {
 	private StockCode stc;// stock list
 	private StockMst stm;
-	private ArrayList<Object[]> stclist;
 	private ArrayList<String> stclist_name;
-	private ArrayList<String> stclist_name_possible;
 	private StockChart stchart;
 	private AutoSuggest itemCode_comboBoxs;
 	private ArrayList<Object> fields;
@@ -51,17 +49,14 @@ public class chartScreen extends JPanel {
 	private JComboBox day_option;
 	private ChartPanel chartpanel;
 
-	public chartScreen() {
+	public chartScreen( ArrayList<String> list) {
 		stc = new StockCode();
 		stm = new StockMst();
 		stchart = new StockChart();
-		stclist = stc.getStockList();
-		stclist_name = new ArrayList<String>();
+		stclist_name = list;
 		setLayout(new BorderLayout(0, 0));
 		setting = new JPanel();
 		day_option = new JComboBox();
-
-		insert_ItemCode_Combobox(stclist);
 
 		itemCode_comboBoxs = new AutoSuggest(stclist_name.toArray());
 		itemCode_comboBoxs.setSelectedIndex(100);
@@ -88,13 +83,6 @@ public class chartScreen extends JPanel {
 		chartpanel = new ChartPanel(chart);
 		add(chartpanel, BorderLayout.CENTER);
 
-	}
-
-	public void insert_ItemCode_Combobox(ArrayList<Object[]> stclist) {
-		stclist_name = new ArrayList<String>();
-		for (int i = 0; i < stclist.size(); i++) {
-			stclist_name.add(stclist.get(i)[1].toString());
-		}
 	}
 
 	public void setSeries(int option, int counts, ArrayList<Object> field, int date_option) {
@@ -221,7 +209,7 @@ public class chartScreen extends JPanel {
 			}
 		}
 	}
-
+	/*
 	public static void main(String[] args) {
 		chartScreen c = new chartScreen();
 		JFrame myFrame = new JFrame();
@@ -236,7 +224,7 @@ public class chartScreen extends JPanel {
 		myFrame.setLocation((int) (insets.left), (int) (insets.top));
 		myFrame.setVisible(true);
 	}
-
+	*/
 }
 
 
