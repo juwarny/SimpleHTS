@@ -36,27 +36,28 @@ public class FinanceInfoTable
 	private JScrollPane jScollPane;	
 	private Finance_info_Scraping fis;
 	private JPanel panel;
-	private Component com;
 	private JLabel lblNewLabel;
 	
 	public FinanceInfoTable()
 	{
 		fis = new Finance_info_Scraping("A005930");		
-		fis.setFinanceTableData();
+		fis.setFinanceStatementTableData();
 		fis.setLogo();
 		fis.setName_and_class();
 		String s = fis.getName_and_class().toString();
+		lblNewLabel = new JLabel(s);
+		lblNewLabel.setIcon(fis.getLogo_image());
+		
 		System.out.println(s);
 		jTable = new JTable(getTableModel());
 		jScollPane = new JScrollPane(jTable);
 		jFrame.getContentPane().setLayout(new BorderLayout(0, 0));
-		//jFrame.getContentPane().add(jScollPane);
+		jFrame.getContentPane().add(jScollPane);
 		panel = new JPanel();
 		panel.setLayout(new FlowLayout());
-		lblNewLabel = new JLabel(s);
-		lblNewLabel.setIcon(fis.getLogo_image());
+		
 		panel.add(lblNewLabel);
-		panel.add(jScollPane);
+		//panel.add(jScollPane);
 		jFrame.getContentPane().add(panel, BorderLayout.NORTH);		
 					
 		//테이블에 Row를 미리 선택한 상태로 만들기!

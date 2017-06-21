@@ -113,7 +113,7 @@ public class Inquiry {
 		
 		dayNconclud.setInputValue(0, (Object)accountNum);
 		dayNconclud.setInputValue(1, (Object)gdmgcode);
-		dayNconclud.setInputValue(3, (Object)code);		
+		//dayNconclud.setInputValue(3, (Object)code);		
 		dayNconclud.setInputValue(4, (Object)callcode);
 		dayNconclud.setInputValue(5, (Object)sortcode);
 		dayNconclud.setInputValue(6, (Object)qrclosecode);
@@ -200,7 +200,7 @@ public class Inquiry {
 		od = new OdBeforeinit();
 		od.tradeInit();		
 		accountNum =  od.getAccountNum();
-		
+		//System.out.println(accountNum[0]);
 		concribalance.setInputValue(0, (Object)accountNum[0]);
 		concribalance.setInputValue(1, (Object)gdmgcode);
 		concribalance.setInputValue(2, (Object)quirynum);

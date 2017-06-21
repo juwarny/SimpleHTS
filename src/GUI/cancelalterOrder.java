@@ -146,10 +146,10 @@ public class cancelalterOrder extends JPanel{
 	public void insert_Combobox_Info(){
 		stclist = new ArrayList<Object[]>();
 		possible.setvalDayNconclud(accountNum_comboBox.getSelectedItem().toString(), "10", "", "0", "0", "0", Long.parseLong("1"));
-		int count = possible.getHvalDayNconclud().intValue();
+		int count = Integer.parseInt(possible.getHvalDayNconclud().toString());
 		
 		if(count!=0){
-			for(int i = 0; i<count; i++){
+			for(int i = 1; i<=count; i++){
 				stclist.add(possible.getDvalDayNconclud(i).toArray());
 				odCode_comboBox.addItem(possible.getDvalDayNconclud(i).get(2));
 				itemCode_comboBoxs.addItem(possible.getDvalDayNconclud(i).get(4));
@@ -163,7 +163,7 @@ public class cancelalterOrder extends JPanel{
 	/*¸®½º³Ê*/
 	public class OrderCodeChangeListener implements ItemListener{
 		public void itemStateChanged(ItemEvent e) {
-			itemCode_comboBoxs.setSelectedItem(odCode_comboBox.getSelectedItem());			
+			itemCode_comboBoxs.setSelectedIndex(odCode_comboBox.getSelectedIndex());			
 		}
 	}	
 	

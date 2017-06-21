@@ -51,6 +51,7 @@ public class accountScreen extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private JScrollPane scroller;
 	private JPanel panel;
 	private ArrayList<Object> records;
 
@@ -85,14 +86,24 @@ public class accountScreen extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane);
 		
-		panel = new JPanel();
-		tabbedPane.addTab("New tab", null, panel, null);
-		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		//panel = new JPanel();
+		//tabbedPane.addTab("New tab", null, panel, null);
+		//panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		table = new JTable(getTableModel());		
-		panel.add(table);
 		
+		
+		
+		
+		table = new JTable(getTableModel());
+		table.setVisible(true);
+		//scroller.add(table);
+		 scroller = new JScrollPane(table);
+		 scroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		 scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		//panel.add(table);
+		//tabbedPane.addTab("New tab", null, panel, null);
 		//JScrollPane jScollPane = new JScrollPane(table);
+		 tabbedPane.addTab("New tab", null, scroller, null);
 	}
 	
 	public DefaultTableModel getTableModel(){		
@@ -111,11 +122,12 @@ public class accountScreen extends JFrame {
 		records.add(concribalance.getHvalConcribalance(0).get(9));
 		records.add(concribalance.getHvalConcribalance(0).get(11));
 
-		Object[][] datas = {records.toArray()};
+		Object[][] datas = null;
 		//대주금액, 대주평가금액, 수신개수, 계좌명 삭제		
 		
-		DefaultTableModel defaultTableModel = new DefaultTableModel(datas, columnNames); //DefaultTableModel을 선언하고 데이터 담기		
-		for(Object j : concribalance.getHvalConcribalance(1)){
+		DefaultTableModel defaultTableModel = new DefaultTableModel(); //DefaultTableModel을 선언하고 데이터 담기		
+		defaultTableModel.addRow(concribalance.getDvalConcribalance(0, 0).toArray());
+		for(Object j : concribalance.getHvalConcribalance(0)){
 			System.out.println(j);
 		}
 		return defaultTableModel;

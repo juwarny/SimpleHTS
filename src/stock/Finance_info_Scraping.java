@@ -122,7 +122,7 @@ public class Finance_info_Scraping {
 		}
 	}	
 	
-	public void setFinanceTableData(){
+	public void setFinanceAnalysisTableData(){
 		col_name = new ArrayList<String>();
 		
 		record = new ArrayList<Object[]>(); 
@@ -178,10 +178,178 @@ public class Finance_info_Scraping {
 		    record.add(data.toArray());
 		}
 	}
+	public void setFinanceStatementTableData(){
+		col_name = new ArrayList<String>();
+		
+		record = new ArrayList<Object[]>(); 
+		String option = null;
+		
+		setFinnaceinfo(itemcode);
+		Document doc = null;
+		
+		try {
+			doc = Jsoup.connect(link).get();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Elements rowElements = doc.select("div#Sin1 div.section1 table.list_b1 tbody tr td");
+		if(rowElements.get(0).text().equals("자료가 없습니다.")){
+			option = "div#Sin0 ";
+		}
+		else{
+			option = "div#Sin1 ";
+		}
+		
+		rowElements = doc.select(option + "div.section1 table.list_b1 thead tr");		
+
+		for (int i = 0; i < rowElements.size()-1; i++) {
+			Element row = rowElements.get(i);
+			Elements name = row.getElementsByTag("th");
+			 for(int j=0; j< name.size(); j++){
+				 col_name.add(name.get(j).text());
+				 System.out.println(name.get(j).text());
+		    }		    
+		}
+		
+		rowElements = doc.select(option + "div.section1 table.list_b1 tbody tr");
+		
+		for (int i = 0; i < rowElements.size()/2; i++) {
+			data = new ArrayList<String>();
+			
+			Element row = rowElements.get(i);
+			Elements name = row.getElementsByTag("th");
+			if(name.get(0).toString().contains("<span")){
+				data.add("    "+name.get(0).text());
+			}else{
+				data.add(name.get(0).text());
+			}
+		    System.out.println(name.get(0).text());
+		    Elements cols = row.getElementsByTag("td");
+		    for(int j=0; j< cols.size(); j++){
+		    	 data.add(cols.get(j).text());
+		    	 System.out.println(cols.get(j).text());
+		    }
+		    record.add(data.toArray());
+		}
+	}
 	
+	public void setStatementOfComprehensiveIncomeTableData(){
+		col_name = new ArrayList<String>();
+		
+		record = new ArrayList<Object[]>(); 
+		String option = null;
+		
+		setFinnaceinfo(itemcode);
+		Document doc = null;
+		
+		try {
+			doc = Jsoup.connect(link).get();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Elements rowElements = doc.select("div#Pin1 div.section1 table.list_b1 tbody tr td");
+		if(rowElements.get(0).text().equals("자료가 없습니다.")){
+			option = "div#Pin0 ";
+		}
+		else{
+			option = "div#Pin1 ";
+		}
+		
+		rowElements = doc.select(option + "div.section1 table.list_b1 thead tr");		
+
+		for (int i = 0; i < rowElements.size()-1; i++) {
+			Element row = rowElements.get(i);
+			Elements name = row.getElementsByTag("th");
+			 for(int j=0; j< name.size(); j++){
+				 col_name.add(name.get(j).text());
+				 System.out.println(name.get(j).text());
+		    }		    
+		}
+		
+		rowElements = doc.select(option + "div.section1 table.list_b1 tbody tr");
+		
+		for (int i = 0; i < rowElements.size()/2; i++) {
+			data = new ArrayList<String>();
+			
+			Element row = rowElements.get(i);
+			Elements name = row.getElementsByTag("th");
+			if(name.get(0).toString().contains("<span")){
+				data.add("    "+name.get(0).text());
+			}else{
+				data.add(name.get(0).text());
+			}
+		    System.out.println(name.get(0).text());
+		    Elements cols = row.getElementsByTag("td");
+		    for(int j=0; j< cols.size(); j++){
+		    	 data.add(cols.get(j).text());
+		    	 System.out.println(cols.get(j).text());
+		    }
+		    record.add(data.toArray());
+		}
+	}
 	
+	public void setStatementOfCashFlowTableData(){
+		col_name = new ArrayList<String>();
+		
+		record = new ArrayList<Object[]>(); 
+		String option = null;
+		
+		setFinnaceinfo(itemcode);
+		Document doc = null;
+		
+		try {
+			doc = Jsoup.connect(link).get();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Elements rowElements = doc.select("div#Hin1 div.section1 table.list_b1 tbody tr td");
+		if(rowElements.get(0).text().equals("자료가 없습니다.")){
+			option = "div#Hin0 ";
+		}
+		else{
+			option = "div#Hin1 ";
+		}
+		
+		rowElements = doc.select(option + "div.section1 table.list_b1 thead tr");		
+
+		for (int i = 0; i < rowElements.size()-1; i++) {
+			Element row = rowElements.get(i);
+			Elements name = row.getElementsByTag("th");
+			 for(int j=0; j< name.size(); j++){
+				 col_name.add(name.get(j).text());
+				 System.out.println(name.get(j).text());
+		    }		    
+		}
+		
+		rowElements = doc.select(option + "div.section1 table.list_b1 tbody tr");
+		
+		for (int i = 0; i < rowElements.size()/2; i++) {
+			data = new ArrayList<String>();
+			
+			Element row = rowElements.get(i);
+			Elements name = row.getElementsByTag("th");
+			if(name.get(0).toString().contains("<span")){
+				data.add("    "+name.get(0).text());
+			}else{
+				data.add(name.get(0).text());
+			}
+		    System.out.println(name.get(0).text());
+		    Elements cols = row.getElementsByTag("td");
+		    for(int j=0; j< cols.size(); j++){
+		    	 data.add(cols.get(j).text());
+		    	 System.out.println(cols.get(j).text());
+		    }
+		    record.add(data.toArray());
+		}
+	}
 	public static void main(String[]args){
 		Finance_info_Scraping a = new Finance_info_Scraping("A225530");
-		a.setFinanceTableData();
+		a.setStatementOfCashFlowTableData();//백만원 단위 전부다
 	}
 }

@@ -30,9 +30,6 @@ public class Search {
 		현재 감시되는 전략이 있다면 각 통신ID에 대응되는 새로운 일련번호를 리턴한다.*/		 
 		stgalert = test.CpSysDib.ClassFactory.createCssAlert();//현재 종목검색 전략에 대한 종목들의 진입/퇴출 등 발생 신호에 대한 정보를 가져온다.
 	}	
-	public void go(){
-		
-	}
 	public ArrayList<Object> getHvalStglist(){
 		stgcount = new ArrayList<Object>();
 		stglist.blockRequest();
@@ -100,9 +97,7 @@ public class Search {
 	public static void main(String[]args){
 		Search s = new Search();
 		ArrayList<Object> a;
-		//s.go();
-		a=s.getHvalStglist();
-		//a = s.getDvalStglist(0);
+		a=s.getDvalStglist(0);
 		for(int i=0; i<a.size(); i++){
 			System.out.println(a.get(i).toString());			
 		}		
