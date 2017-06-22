@@ -16,6 +16,9 @@ import GUI.AutoSuggest;
 import trade.Inorder;
 import trade.Inquiry;
 import trade.OdBeforeinit;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.MatteBorder;
 
 public class cancelalterOrder extends JPanel{
 	private StockCode stc;//stock list
@@ -64,7 +67,6 @@ public class cancelalterOrder extends JPanel{
 				
 		lblNewLabel = new JLabel("취소/정정");
 		panel.add(lblNewLabel);
-		lblNewLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		
@@ -77,7 +79,6 @@ public class cancelalterOrder extends JPanel{
 		
 		label = new JLabel("계좌번호");
 		panel.add(label);
-		label.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		accountNum_comboBox = new JComboBox();
 		panel.add(accountNum_comboBox);
@@ -87,7 +88,6 @@ public class cancelalterOrder extends JPanel{
 		
 		
 		lblNewLabel_1 = new JLabel("원주문번호");
-		lblNewLabel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel.add(lblNewLabel_1);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		odCode_comboBox = new JComboBox();
@@ -97,7 +97,6 @@ public class cancelalterOrder extends JPanel{
 		
 		label_1 = new JLabel("종목명");
 		panel.add(label_1);
-		label_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		itemCode_comboBoxs = new JComboBox();
 		panel.add(itemCode_comboBoxs);
@@ -108,7 +107,6 @@ public class cancelalterOrder extends JPanel{
 			
 		label_2 = new JLabel("주문 수량");
 		panel.add(label_2);
-		label_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		orderQuan_spinner = new JSpinner();
@@ -119,7 +117,6 @@ public class cancelalterOrder extends JPanel{
 		
 		label_3 = new JLabel("주문 단가");
 		panel.add(label_3);
-		label_3.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label_3.setHorizontalAlignment(SwingConstants.CENTER);
 		orderUnitPrice_spinner = new JSpinner();
 		panel.add(orderUnitPrice_spinner);
@@ -130,7 +127,6 @@ public class cancelalterOrder extends JPanel{
 		
 		label_4 = new JLabel("총 합계 :");
 		panel.add(label_4);
-		label_4.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label_4.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JButton orderButton = new JButton("주문");

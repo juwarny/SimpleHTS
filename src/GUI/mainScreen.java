@@ -20,6 +20,8 @@ import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
@@ -68,6 +70,7 @@ public class mainScreen extends JFrame {
 	private ArrayList<String> stclist_name;
 	private OdBeforeinit od;
 	private Object[] accountNum;
+	private click ck;
 	/**
 	 * Launch the application.
 	 */
@@ -162,7 +165,8 @@ public class mainScreen extends JFrame {
 		tabbedPane.setAlignmentY(0.0f);
 		contentPane.add(tabbedPane);		
 		
-	
+		ck = new click();
+		tabbedPane.addMouseListener(ck);
 	}
 	public void setListLoading(JFrame f){		
 		
@@ -185,7 +189,9 @@ public class mainScreen extends JFrame {
 	public class menuActionListener implements  ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			if(e.getActionCommand().equals("체결기준 잔고 조회/평가")){
-			
+				as = new accountScreen(accountNum);
+				tabbedPane.addTab("체결기준 잔고 조회/평가", null, as, null);
+				tabbedPane.setSelectedComponent(as);
 			}
 			else if(e.getActionCommand().equals("금일 주문/체결 내역")){
 				
@@ -193,26 +199,66 @@ public class mainScreen extends JFrame {
 			else if(e.getActionCommand().equals("종목 시가")){
 				cs = new chartScreen(stclist_name);
 				tabbedPane.addTab("종목 시가", null, cs, null);
+				tabbedPane.setSelectedComponent(cs);
 			}
 			else if(e.getActionCommand().equals("종목 재무정보")){
 				fit = new FinanceInfoTable(stclist_name);
 				tabbedPane.addTab("종목 재무정보", null, fit, null);
+				tabbedPane.setSelectedComponent(fit);
 			}
 			else if(e.getActionCommand().equals("종목 뉴스")){
 				fn = new FinanceNews2("A005935", stclist_name);
 				tabbedPane.addTab("종목 뉴스", fn);	
+				tabbedPane.setSelectedComponent(fn);
 			}
 			else if(e.getActionCommand().equals("매수/매도")){
 				sbo = new sellbuyOrder(stclist_name, accountNum);
 				tabbedPane.addTab("매수/매도", sbo);
+				tabbedPane.setSelectedComponent(sbo);
 			}
 			else if(e.getActionCommand().equals("정정/취소")){
 				cao = new cancelalterOrder(accountNum);
 				tabbedPane.addTab("정정/취소", cao);
+				tabbedPane.setSelectedComponent(cao);
 			}
 			else if(e.getActionCommand().equals("전략설정")){
 				
 			}			
+		}
+		
+	}
+	public class click implements MouseListener{
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(e.getClickCount()==2){				
+				int index = tabbedPane.getSelectedIndex();
+				tabbedPane.removeTabAt(index);
+			}			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
 		}
 		
 	}

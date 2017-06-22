@@ -197,11 +197,11 @@ public class Inquiry {
 		return quiryinfo;
 	}
 	
-	public void setvalConcribalance(String gdmgcode,  long quirynum){
-		od = new OdBeforeinit();
-		od.tradeInit();		
-		accountNum =  od.getAccountNum();
-		concribalance.setInputValue(0, (Object)accountNum[0]);
+	public void setvalConcribalance(String accountNum, String gdmgcode,  long quirynum){
+		//od = new OdBeforeinit();
+		//od.tradeInit();		
+		//accountNum =  od.getAccountNum();
+		concribalance.setInputValue(0, (Object)accountNum);
 		concribalance.setInputValue(1, (Object)gdmgcode);
 		concribalance.setInputValue(2, (Object)quirynum);
 				
@@ -222,7 +222,7 @@ public class Inquiry {
 		quiryinfo = new ArrayList<Object>();
 		concribalance._continue(conti);
 		concribalance.blockRequest();
-		for(int i=0; i<18; i++){
+		for(int i=0; i<19; i++){
 			while(concribalance.getDataValue(i, index)==null) i++;
 			quiryinfo.add(concribalance.getDataValue(i, index));			
 		}		

@@ -62,7 +62,6 @@ public class sellbuyOrder extends JPanel {
 		
 		lblNewLabel = new JLabel("매수/매도");
 		panel.add(lblNewLabel);
-		lblNewLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		sellbuy_comboBox = new JComboBox();
@@ -72,7 +71,6 @@ public class sellbuyOrder extends JPanel {
 		
 		label = new JLabel("계좌번호");
 		panel.add(label);
-		label.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		accountNum_comboBox = new JComboBox();
@@ -81,7 +79,6 @@ public class sellbuyOrder extends JPanel {
 		
 		label_1 = new JLabel("종목명");
 		panel.add(label_1);
-		label_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		itemCode_comboBoxs = new AutoSuggest(stclist_name.toArray());
 		panel.add(itemCode_comboBoxs);
@@ -92,7 +89,6 @@ public class sellbuyOrder extends JPanel {
 		
 		label_2 = new JLabel("주문 수량");
 		panel.add(label_2);
-		label_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		orderQuan_spinner = new JSpinner();
@@ -103,7 +99,6 @@ public class sellbuyOrder extends JPanel {
 		
 		label_3 = new JLabel("주문 단가");
 		panel.add(label_3);
-		label_3.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label_3.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		orderUnitPrice_spinner = new JSpinner();
@@ -114,7 +109,6 @@ public class sellbuyOrder extends JPanel {
 		
 		label_4 = new JLabel("총 합계 :");
 		panel.add(label_4);
-		label_4.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label_4.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JButton orderButton = new JButton("주문");

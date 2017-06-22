@@ -28,15 +28,15 @@ public class JTableExam
 	DefaultTableModel defaultTableModel = new DefaultTableModel(rowData, columnNames);
 	*/
 	//JTable에 DefaultTableModel을 담기
-	JTable jTable = new JTable(getTableModel());
+	//JTable jTable = new JTable(getTableModel());
 	
 	//JScrollPane에 JTable을 담기
-	JScrollPane jScollPane = new JScrollPane(jTable);
+	//JScrollPane jScollPane = new JScrollPane(jTable);
 	
 	
 	public JTableExam()
 	{
-		jFrame.add(jScollPane);
+		//jFrame.add(jScollPane);
 		/*
 		//행 한줄 추가!
 		Object [] temporaryObject = { 4, "초코송이", 500, "식품계의 절대강자" };
@@ -66,7 +66,7 @@ public class JTableExam
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
-	
+	/*
 	public DefaultTableModel getTableModel(){		
 		String columnNames[] =
 			{ "결제 잔고수량", "체결 잔고수량", "평가금액", "평가손익", "대출금액", "수익율", "D+2 예상 예수금", "잔고평가금액" };
@@ -89,4 +89,5 @@ public class JTableExam
 	{
 		JTableExam jt = new JTableExam();		
 	}
+	*/
 }
