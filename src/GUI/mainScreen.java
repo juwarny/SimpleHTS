@@ -11,6 +11,7 @@ import chrriis.common.UIUtils;
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 import javafx.scene.control.TabPane;
 import stock.StockCode;
+import trade.OdBeforeinit;
 
 import javax.swing.JToolBar;
 import javax.swing.JDesktopPane;
@@ -65,7 +66,8 @@ public class mainScreen extends JFrame {
 	private StockCode stc;
 	private ArrayList<Object[]> stclist;
 	private ArrayList<String> stclist_name;
-	
+	private OdBeforeinit od;
+	private Object[] accountNum;
 	/**
 	 * Launch the application.
 	 */
@@ -78,7 +80,8 @@ public class mainScreen extends JFrame {
 				try {
 					mainScreen frame = new mainScreen();
 					frame.setVisible(true);
-					frame.setListLoading(frame);					
+					frame.setListLoading(frame);
+					frame.setAccountNumber();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -168,6 +171,11 @@ public class mainScreen extends JFrame {
 		insert_ItemCode_Combobox(stclist);				    
 		
 	}
+	public void setAccountNumber(){
+		od = new OdBeforeinit();
+		od.tradeInit();		
+		accountNum =  od.getAccountNum();
+	}
 	public void insert_ItemCode_Combobox(ArrayList<Object[]> stclist){
 		stclist_name = new ArrayList<String>();		
 		for(int i=0; i<stclist.size(); i++){
@@ -195,11 +203,11 @@ public class mainScreen extends JFrame {
 				tabbedPane.addTab("종목 뉴스", fn);	
 			}
 			else if(e.getActionCommand().equals("매수/매도")){
-				sbo = new sellbuyOrder(stclist_name);
+				sbo = new sellbuyOrder(stclist_name, accountNum);
 				tabbedPane.addTab("매수/매도", sbo);
 			}
 			else if(e.getActionCommand().equals("정정/취소")){
-				cao = new cancelalterOrder();
+				cao = new cancelalterOrder(accountNum);
 				tabbedPane.addTab("정정/취소", cao);
 			}
 			else if(e.getActionCommand().equals("전략설정")){

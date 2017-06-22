@@ -113,7 +113,7 @@ public class Inquiry {
 		
 		dayNconclud.setInputValue(0, (Object)accountNum);
 		dayNconclud.setInputValue(1, (Object)gdmgcode);
-		//dayNconclud.setInputValue(3, (Object)code);		
+		dayNconclud.setInputValue(3, (Object)code);		
 		dayNconclud.setInputValue(4, (Object)callcode);
 		dayNconclud.setInputValue(5, (Object)sortcode);
 		dayNconclud.setInputValue(6, (Object)qrclosecode);
@@ -122,11 +122,12 @@ public class Inquiry {
 		dayNconclud.blockRequest();		
 	}
 	public Long getHvalDayNconclud(){
+		dayNconclud.blockRequest();
 		return Long.parseLong(dayNconclud.getHeaderValue(5).toString());
 	}
 	public ArrayList<Object> getDvalDayNconclud(int index){
 		quiryinfo = new ArrayList<Object>();
-		//dayNconclud._continue(0);
+		dayNconclud._continue(1);
 		dayNconclud.blockRequest();
 		for(int i=0; i<29; i++){
 			while(dayNconclud.getDataValue(i, index)==null) i++;
@@ -200,18 +201,17 @@ public class Inquiry {
 		od = new OdBeforeinit();
 		od.tradeInit();		
 		accountNum =  od.getAccountNum();
-		//System.out.println(accountNum[0]);
 		concribalance.setInputValue(0, (Object)accountNum[0]);
 		concribalance.setInputValue(1, (Object)gdmgcode);
 		concribalance.setInputValue(2, (Object)quirynum);
-		//System.out.println(accountNum[0]);
 				
 		concribalance.blockRequest();		
 	}
 	public ArrayList<Object> getHvalConcribalance(int conti){
 		quiryinfo = new ArrayList<Object>();
-		//concribalance._continue(conti);
+		
 		concribalance.blockRequest();
+		concribalance._continue(conti);
 		for(int i=0; i<13; i++){
 			while(concribalance.getHeaderValue(i)==null) i++;
 			quiryinfo.add(concribalance.getHeaderValue(i));			

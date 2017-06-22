@@ -40,13 +40,14 @@ public class cancelalterOrder extends JPanel{
 	private JComboBox odCode_comboBox;
 	private JPanel panel;
 	private Jpbid1sUpdate jpu;
+	private Object[] accountlist;
 	
-	public cancelalterOrder(){
+	public cancelalterOrder(Object[] accountnum){
 		stc = new StockCode();
 		stm = new StockMst();
 		possible = new Inquiry();
 		price_before = Long.parseUnsignedLong("0");
-		
+		accountlist = accountnum;
 		
 		setLayout(new GridLayout(0, 2, 0, 0));
 			
@@ -83,7 +84,7 @@ public class cancelalterOrder extends JPanel{
 		
 		
 		insert_Accountnum_Combobox(accountNum_comboBox);
-		insert_Combobox_Info();
+		
 		
 		lblNewLabel_1 = new JLabel("원주문번호");
 		lblNewLabel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -103,15 +104,15 @@ public class cancelalterOrder extends JPanel{
 		
 		
 		itemCode_comboBoxs.setEditable(false);		
-		
+		insert_Combobox_Info();
 			
 		label_2 = new JLabel("주문 수량");
 		panel.add(label_2);
 		label_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
-		orderQuan_spinner = new JSpinner();
-		panel.add(orderQuan_spinner);
 		
+		orderQuan_spinner = new JSpinner();
+		panel.add(orderQuan_spinner);		
 		orderQuan_spinner.setEnabled(true);
 		orderQuan_spinner.setEditor(new JSpinner.DefaultEditor(orderQuan_spinner));
 		orderQuan_spinner.setModel(new SpinnerNumberModel(new Long(0), null, null, new Long(1)));
@@ -134,6 +135,7 @@ public class cancelalterOrder extends JPanel{
 		
 		JButton orderButton = new JButton("주문");
 		panel.add(orderButton);
+		
 		orderButton.addActionListener(orderListenr);
 		orderUnitPrice_spinner.addChangeListener(priceListener);
 		orderQuan_spinner.addChangeListener(quanListener);
@@ -147,11 +149,9 @@ public class cancelalterOrder extends JPanel{
 		
 	}
 	public void insert_Accountnum_Combobox(JComboBox accountNum_comboBox){
-		OdBeforeinit od = new OdBeforeinit();
-		od.tradeInit();
-		Object[] a = od.getAccountNum();
-		for(int i=0; i<a.length; i++){
-			accountNum_comboBox.addItem(a[i]);
+		
+		for(int i=0; i<accountlist.length; i++){
+			accountNum_comboBox.addItem(accountlist[i]);
 		}	
 	}
 	public void insert_Combobox_Info(){
@@ -162,12 +162,15 @@ public class cancelalterOrder extends JPanel{
 			e.printStackTrace();
 		}		
 		int count = Integer.parseInt(possible.getHvalDayNconclud().toString());
-		
-		if(count!=0){
-			for(int i = 1; i<=count; i++){
-				stclist.add(possible.getDvalDayNconclud(i).toArray());
-				odCode_comboBox.addItem(possible.getDvalDayNconclud(i).get(2));
-				itemCode_comboBoxs.addItem(possible.getDvalDayNconclud(i).get(4));
+		if(count!=0 || count!=3840){
+			try{
+				for(int i = 0; i<=count; i++){
+					stclist.add(possible.getDvalDayNconclud(i).toArray());
+					odCode_comboBox.addItem(stclist.get(i)[2]);//possible.getDvalDayNconclud(i).get(2)
+					itemCode_comboBoxs.addItem(stclist.get(i)[4]);
+				}
+			}catch(Exception e){
+				e.printStackTrace();
 			}
 		}
 		
@@ -178,7 +181,10 @@ public class cancelalterOrder extends JPanel{
 	/*리스너*/
 	public class OrderCodeChangeListener implements ItemListener{
 		public void itemStateChanged(ItemEvent e) {
-			itemCode_comboBoxs.setSelectedIndex(odCode_comboBox.getSelectedIndex());			
+			int a = odCode_comboBox.getSelectedIndex();			
+			itemCode_comboBoxs.setSelectedIndex(a);
+			orderQuan_spinner.setValue(Long.parseLong(stclist.get(a)[11].toString()));
+			orderUnitPrice_spinner.setValue(Long.parseLong(stclist.get(a)[7].toString()));
 		}
 	}	
 	
@@ -191,6 +197,7 @@ public class cancelalterOrder extends JPanel{
 			else{
 				orderUnitPrice_spinner.setEnabled(true);
 			}
+			insert_Combobox_Info();
 		}
 	}	
 	public class OrderActionListener implements ActionListener{

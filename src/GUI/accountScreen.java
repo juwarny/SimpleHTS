@@ -54,6 +54,7 @@ public class accountScreen extends JFrame {
 	private JScrollPane scroller;
 	private JPanel panel;
 	private ArrayList<Object> records;
+	private ArrayList<Object> allinfo;
 
 	/**
 	 * Launch the application.
@@ -112,22 +113,24 @@ public class accountScreen extends JFrame {
 		
 		Inquiry concribalance = new Inquiry();
 		records = new ArrayList<Object>();
-		concribalance.setvalConcribalance("10", 14);
-		records.add(concribalance.getHvalConcribalance(0).get(1));
-		records.add(concribalance.getHvalConcribalance(0).get(2));
-		records.add(concribalance.getHvalConcribalance(0).get(3));
-		records.add(concribalance.getHvalConcribalance(0).get(4));
-		records.add(concribalance.getHvalConcribalance(0).get(6));
-		records.add(concribalance.getHvalConcribalance(0).get(8));
-		records.add(concribalance.getHvalConcribalance(0).get(9));
-		records.add(concribalance.getHvalConcribalance(0).get(11));
 
-		Object[][] datas = null;
+		
+		concribalance.setvalConcribalance("10", 10);
+		allinfo = concribalance.getHvalConcribalance(1);
+		
+		records.add(allinfo.get(1));
+		records.add(allinfo.get(2));
+		records.add(allinfo.get(3));
+		records.add(allinfo.get(4));
+		records.add(allinfo.get(8));
+		records.add(allinfo.get(9));
+		records.add(allinfo.get(11));
+
 		//대주금액, 대주평가금액, 수신개수, 계좌명 삭제		
 		
-		DefaultTableModel defaultTableModel = new DefaultTableModel(); //DefaultTableModel을 선언하고 데이터 담기		
-		defaultTableModel.addRow(concribalance.getDvalConcribalance(0, 0).toArray());
-		for(Object j : concribalance.getHvalConcribalance(0)){
+		DefaultTableModel defaultTableModel = new DefaultTableModel(null, columnNames);
+		defaultTableModel.addRow(records.toArray());//concribalance.getDvalConcribalance(0, 0).toArray()
+		for(Object j : concribalance.getDvalConcribalance(1, 0).toArray()){
 			System.out.println(j);
 		}
 		return defaultTableModel;

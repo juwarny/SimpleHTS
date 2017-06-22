@@ -35,14 +35,16 @@ public class sellbuyOrder extends JPanel {
 	private Inquiry possible;
 	private JPanel panel;
 	private Jpbid1sUpdate jpu;
-
-	public sellbuyOrder(ArrayList<String> list){
+	private Object[] accountlist;
+	
+	public sellbuyOrder(ArrayList<String> list, Object[] accountNum){
 		stc = new StockCode();
 		stm = new StockMst();
 		possible = new Inquiry();
 		price_before = Long.parseUnsignedLong("0");
 		stclist_name = list;
 		stclist_name_possible = new ArrayList<String>();
+		accountlist = accountNum;
 		
 		setLayout(new GridLayout(0, 2, 0, 0));
 		SellBuyChangeListener sbListener = new SellBuyChangeListener();;
@@ -128,11 +130,9 @@ public class sellbuyOrder extends JPanel {
 		add(panel);
 	}
 	public void insert_Accountnum_Combobox(JComboBox accountNum_comboBox){
-		OdBeforeinit od = new OdBeforeinit();
-		od.tradeInit();
-		Object[] a = od.getAccountNum();
-		for(int i=0; i<a.length; i++){
-			accountNum_comboBox.addItem(a[i]);
+		
+		for(int i=0; i<accountlist.length; i++){
+			accountNum_comboBox.addItem(accountlist[i]);
 		}	
 	}
 	public void insert_ItemCode_Combobox(ArrayList<Object[]> stclist){

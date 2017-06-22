@@ -20,8 +20,6 @@ public class StockCode {
 	private ICpStockCode stcode;
 	private ArrayList<Object[]> stlist;
 	private ArrayList<Object> fieldvalue;
-	private JProgressBar progressBar;
-	private JFrame start;
 
 	public StockCode(){
 		stcode = test.cputil.ClassFactory.createCpStockCode();

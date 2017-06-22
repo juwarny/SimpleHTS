@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.swing.*;
 import javax.swing.event.*;
+import javax.swing.table.DefaultTableModel;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -48,6 +49,13 @@ public class chartScreen extends JPanel {
 	private JPanel setting;
 	private JComboBox day_option;
 	private ChartPanel chartpanel;
+	private JLabel lblNewLabel;
+	private JLabel label;
+	private JPanel panel;
+	private JLabel lblNewLabel_1;
+	private JTable table;
+	private Finance_info_Scraping fis;
+	private JScrollPane scrollPane;
 
 	public chartScreen( ArrayList<String> list) {
 		stc = new StockCode();
@@ -61,6 +69,7 @@ public class chartScreen extends JPanel {
 		itemCode_comboBoxs = new AutoSuggest(stclist_name.toArray());
 		itemCode_comboBoxs.setSelectedIndex(100);
 		itemCode_comboBoxs.setEditable(true);
+		itemCode_comboBoxs.setVisible(true);
 		ItemCodeListener itemcodeListener = new ItemCodeListener();
 		itemCode_comboBoxs.addItemListener(itemcodeListener);
 
@@ -68,21 +77,66 @@ public class chartScreen extends JPanel {
 		day_option.addItem("주");
 		day_option.addItem("월");
 		day_option.addItem("분");
-		day_option.addItem("틱");
 		Day_OptionListener dayoptionListener = new Day_OptionListener();
 		day_option.addItemListener(dayoptionListener);
 		day_option.setSelectedIndex(0);
 
 		setSeries(0, 0, null, 0);
 		setChart(insert_OHLCData());
-
-		setting.setLayout(new GridLayout(0, 2));
+		setting.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		lblNewLabel = new JLabel("\uC885\uBAA9\uBA85");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		setting.add(lblNewLabel);
 		setting.add(itemCode_comboBoxs);
+		
+		label = new JLabel("\uBD09 \uB2E8\uC704");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		setting.add(label);
 		setting.add(day_option);
-		add(setting, BorderLayout.EAST);
+		
 		chartpanel = new ChartPanel(chart);
 		add(chartpanel, BorderLayout.CENTER);
-
+		
+		panel = new JPanel();
+		add(panel, BorderLayout.EAST);
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblNewLabel_1, BorderLayout.SOUTH);
+		
+		
+		table = new JTable();
+		table.setVisible(true);
+		setFis();
+		scrollPane = new JScrollPane(table);
+		scrollPane.setPreferredSize(new Dimension(300, 402));
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		panel.add(scrollPane, BorderLayout.CENTER);
+		panel.add(setting, BorderLayout.NORTH);
+		//add(scrollPane, BorderLayout.EAST);
+	}
+	public void setFis(){
+		String s = itemCode_comboBoxs.getSelectedItem().toString();
+		s = stc.NameToCode(s);
+		fis = new Finance_info_Scraping(s);
+		table.setModel(getTableModel());
+		fis.setName_and_class();
+		String info = fis.getName_and_class().get(0)+" | "+fis.getName_and_class().get(1)+" | "+fis.getName_and_class().get(2);
+		lblNewLabel_1.setText(info);
+	}
+	
+	public DefaultTableModel getTableModel(){
+		fis.setSummaryTableData();
+		DefaultTableModel defaultTableModel = new DefaultTableModel(); //DefaultTableModel을 선언하고 데이터 담기
+		String[] col = {"시세현황", ""};
+		defaultTableModel.setColumnIdentifiers(col);
+		for(int i=0; i<fis.getData().size(); i++){
+			Object[] a = {fis.getCol_name().get(i), fis.getData().get(i)};
+			defaultTableModel.insertRow(i, a);
+		}		
+		return defaultTableModel;
 	}
 
 	public void setSeries(int option, int counts, ArrayList<Object> field, int date_option) {
@@ -146,6 +200,7 @@ public class chartScreen extends JPanel {
 		chart.setBackgroundPaint(Color.white);
 
 		// 4. Set a few custom plot features
+		chart.getXYPlot().setRenderer(new MyCandlestickRenderer());
 		XYPlot plot = chart.getXYPlot();
 		plot.setBackgroundPaint(Color.WHITE); // light yellow = new
 												// Color(0xffffe0)
@@ -158,9 +213,33 @@ public class chartScreen extends JPanel {
 
 		// 6. No volume drawn
 		((CandlestickRenderer) plot.getRenderer()).setDrawVolume(true);
-		((CandlestickRenderer) plot.getRenderer()).setUpPaint(Color.RED);
-		((CandlestickRenderer) plot.getRenderer()).setDownPaint(Color.BLUE);
+		((CandlestickRenderer) plot.getRenderer()).setUpPaint(Color.red);
+		((CandlestickRenderer) plot.getRenderer()).setDownPaint(Color.blue);
+		((CandlestickRenderer) plot.getRenderer()).setUseOutlinePaint(false);	
 		((CandlestickRenderer) plot.getRenderer()).setBaseOutlinePaint(Color.black);	   
+	}
+	
+	public class MyCandlestickRenderer extends CandlestickRenderer {
+
+	    @Override
+	    public Paint getItemPaint(int row, int column) {
+
+	        //determine up or down candle 
+	        XYDataset dataset = getPlot().getDataset();
+	        OHLCDataset highLowData = (OHLCDataset) dataset;
+	        int series = row, item = column;
+	        Number yOpen = highLowData.getOpen(series, item);
+	        Number yClose = highLowData.getClose(series, item);
+	        boolean isUpCandle = yClose.doubleValue() > yOpen.doubleValue();
+
+	        //return the same color as that used to fill the candle
+	        if (isUpCandle) {
+	            return getUpPaint();
+	        }
+	        else {
+	            return getDownPaint();
+	        }
+	    }
 	}
 
 	public class ItemCodeListener implements ItemListener {
@@ -169,8 +248,10 @@ public class chartScreen extends JPanel {
 				remove(chartpanel);
 				setSeries(1, 100, fields, 'D');
 				setChart(insert_OHLCData());
+				day_option.setSelectedIndex(0);
 				chartpanel = new ChartPanel(chart);
 				add(chartpanel, BorderLayout.CENTER);
+				setFis();
 				updateUI();
 			}
 
@@ -179,29 +260,23 @@ public class chartScreen extends JPanel {
 
 	public class Day_OptionListener implements ItemListener {
 		public void itemStateChanged(ItemEvent e) {
-			if (e.getStateChange() == ItemEvent.SELECTED) {				
-				switch (e.getItem().toString()) {
-					case "분": {
-						setSeries(1, 100, fields, 'm');
-						setChart(insert_OHLCData());
-					}
-					case "일": {
-						setSeries(1, 100, fields, 'D');
-						setChart(insert_OHLCData());
-					}
-					case "월": {
-						setSeries(1, 100, fields, 'M');
-						setChart(insert_OHLCData());
-					}
-					case "주": {
-						setSeries(1, 100, fields, 'W');
-						setChart(insert_OHLCData());
-					}
-					case "틱": {
-						setSeries(1, 100, fields, 'T');
-						setChart(insert_OHLCData());
-					}
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+				if(e.getItem().toString().equals("분")){
+					setSeries(1, 100, fields, 'm');
+					setChart(insert_OHLCData());
 				}
+				else if(e.getItem().toString().equals("일")){
+					setSeries(1, 100, fields, 'D');
+					setChart(insert_OHLCData());
+				}
+				else if(e.getItem().toString().equals("월")){
+					setSeries(1, 100, fields, 'M');
+					setChart(insert_OHLCData());
+				}
+				else if(e.getItem().toString().equals("주")){
+					setSeries(1, 100, fields, 'W');
+					setChart(insert_OHLCData());
+				}							
 				remove(chartpanel);
 				chartpanel = new ChartPanel(chart);
 				add(chartpanel, BorderLayout.CENTER);
