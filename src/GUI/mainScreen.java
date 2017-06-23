@@ -114,11 +114,7 @@ public class mainScreen extends JFrame {
 		
 		JMenuItem balanceMenuItem = new JMenuItem("체결기준 잔고 조회/평가");
 		balanceMenuItem.addActionListener(menulistener);
-		accountMenu.add(balanceMenuItem);
-		
-		JMenuItem dayconcludMenuItem = new JMenuItem("금일 주문/체결 내역");
-		dayconcludMenuItem.addActionListener(menulistener);
-		accountMenu.add(dayconcludMenuItem);
+		accountMenu.add(balanceMenuItem);	
 		
 		JMenu iteminfoMenu = new JMenu("종목");
 		menuBar.add(iteminfoMenu);
