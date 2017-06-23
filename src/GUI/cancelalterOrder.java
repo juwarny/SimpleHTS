@@ -19,7 +19,7 @@ import trade.OdBeforeinit;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
-
+//주문 정정/취소 패널 클라스
 public class cancelalterOrder extends JPanel{
 	private StockCode stc;//stock list
 	private StockMst stm;	
@@ -144,12 +144,14 @@ public class cancelalterOrder extends JPanel{
 		add(panel);
 		
 	}
+	
 	public void insert_Accountnum_Combobox(JComboBox accountNum_comboBox){
 		
 		for(int i=0; i<accountlist.length; i++){
 			accountNum_comboBox.addItem(accountlist[i]);
 		}	
-	}
+	}//계좌 번호를 콤보박스에 집어넣습니다.
+	
 	public void insert_Combobox_Info(){
 		stclist = new ArrayList<Object[]>();
 		try{
@@ -168,10 +170,8 @@ public class cancelalterOrder extends JPanel{
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-		}
-		
-		
-	}
+		}		
+	}//주문 정보(원주문번호, 종목명)을 받아와서 콤보박스에 집어넣습니다.
 
 	
 	/*리스너*/
@@ -179,13 +179,11 @@ public class cancelalterOrder extends JPanel{
 		public void itemStateChanged(ItemEvent e) {
 			int a = odCode_comboBox.getSelectedIndex();			
 			itemCode_comboBoxs.setSelectedIndex(a);
-			orderQuan_spinner.setValue(Long.parseLong(stclist.get(a)[11].toString()));
-			orderUnitPrice_spinner.setValue(Long.parseLong(stclist.get(a)[7].toString()));
+			orderQuan_spinner.setValue(Long.parseLong(stclist.get(a)[11].toString()));//정정및 취소가능 수량
+			orderUnitPrice_spinner.setValue(Long.parseLong(stclist.get(a)[7].toString()));//주문했던 단가
 		}
 	}	
-	
-	
-	public class CancelAlterChangeListener implements ItemListener{
+	public class CancelAlterChangeListener implements ItemListener{//아이템을 선택하면 가격과 수량 스피너를 활성화 시킨다.
 		public void itemStateChanged(ItemEvent e) {
 			if(e.getItem()=="취소"){
 				orderUnitPrice_spinner.setEnabled(false);
@@ -196,7 +194,7 @@ public class cancelalterOrder extends JPanel{
 			insert_Combobox_Info();
 		}
 	}	
-	public class OrderActionListener implements ActionListener{
+	public class OrderActionListener implements ActionListener{//설정 값으로 주문을 한다.
 		public void actionPerformed(ActionEvent e) {
 			Inorder oder = new Inorder();
 			if(cancelalter_comboBox.getSelectedItem()=="취소"){
@@ -218,6 +216,9 @@ public class cancelalterOrder extends JPanel{
 			String s = stc.NameToCode((String)itemCode_comboBoxs.getSelectedItem());
 			Long unit_up = stc.GetPriceUnit(s, price_before.intValue(), true);
 			Long unit_down = stc.GetPriceUnit(s, price_before.intValue(), false);
+			
+			//주가의 경우 가격에 따라 매매 단위가 달라지기 때문에 (예: 1000원이면, 위로는 5원 아래로는 1원 ) 가격에 따른 단위 변경을 설정해줘야 한다.
+			
 			if(price_before!=Integer.toUnsignedLong(0)){
 				if(a>price_before){
 					orderUnitPrice_spinner.setModel(new SpinnerNumberModel(new Long(price_before+unit_up), null, null, new Long(unit_up)));
@@ -228,13 +229,14 @@ public class cancelalterOrder extends JPanel{
 					price_before-=unit_down;
 				}		
 			}
+			//총합계 변경
 			Long total = Long.parseUnsignedLong(orderUnitPrice_spinner.getValue().toString())*Long.parseUnsignedLong(orderQuan_spinner.getValue().toString());
 			String str = String.format("%,d 원", total);
 			label_4.setText("총 합계 : "+str);
 		}
 	}
 	public class QuanChangeListener implements ChangeListener{
-		public void stateChanged(ChangeEvent e) {				
+		public void stateChanged(ChangeEvent e) {//총합계 변경				
 			 Long total = Long.parseUnsignedLong(orderUnitPrice_spinner.getValue().toString())*Long.parseUnsignedLong(orderQuan_spinner.getValue().toString());
 			 String str = String.format("%,d 원", total);
 			 label_4.setText("총 합계 : "+str);
@@ -244,7 +246,7 @@ public class cancelalterOrder extends JPanel{
 		public void itemStateChanged(ItemEvent e) {
 			 if (e.getStateChange() == ItemEvent.SELECTED) {
 				 try{					 	
-					 	if(stc.NameToCode(e.getItem().toString()) != "" && cancelalter_comboBox.getSelectedItem()=="정정"){
+					 	if(stc.NameToCode(e.getItem().toString()) != ""){//코드와 종목명이 존재하는 경우에만 실행
 					 		String s = stc.NameToCode(e.getItem().toString());
 							stm.setvalStockmst2(s);
 							price_before = Long.parseUnsignedLong(stclist.get(itemCode_comboBoxs.getSelectedIndex())[7].toString());// 현재가 입력
@@ -253,15 +255,8 @@ public class cancelalterOrder extends JPanel{
 							orderUnitPrice_spinner.setEnabled(true);
 							orderQuan_spinner.setEnabled(true);
 					 	}
-					 	else if(stc.NameToCode(e.getItem().toString()) != "" && cancelalter_comboBox.getSelectedItem()=="취소"){
-					 		String s = stc.NameToCode(e.getItem().toString());
-							stm.setvalStockmst2(s);
-							price_before = Long.parseUnsignedLong(stclist.get(itemCode_comboBoxs.getSelectedIndex())[7].toString());// 현재가 입력
-							orderUnitPrice_spinner.setValue(price_before);
-							orderQuan_spinner.setValue(Long.parseUnsignedLong(stclist.get(itemCode_comboBoxs.getSelectedIndex())[11].toString()));
-							orderUnitPrice_spinner.setEnabled(true);
-							orderQuan_spinner.setEnabled(true);				
-					 	}
+					 	
+					 	//10차 호가창을 변경
 					 	remove(jpu);
 					 	jpu = new Jpbid1sUpdate(e.getItem().toString());
 						add(jpu, 0);

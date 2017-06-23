@@ -3,6 +3,7 @@ package trade;
 import java.util.ArrayList;
 import com4j.*;
 import test.cptrade.*;
+//내용이 많아서 사이보스 help 문서를 참고
 
 public class Inorder {
 	private ICpTdDib inod;
@@ -22,6 +23,9 @@ public class Inorder {
 		inodcancle = test.cptrade.ClassFactory.createCpTd0314();//장내 주문취소
 		inodtypeccl = test.cptrade.ClassFactory.createCpTd0303();//장내 주문 유형 정정
 	}
+	
+	
+	
 	public void setvalInod(String sb, String accountNum, String gdmgcode, String code, long quan, long unitprice, String callcode){
 		/*
 		od = new OdBeforeinit();
@@ -43,15 +47,6 @@ public class Inorder {
 		inod.setInputValue(7, (Object)0);
 		inod.setInputValue(8, (Object)callcode);//0이 보통
 		inod.blockRequest();
-		/*
-		'주문 결과와 주문결과 메시지를 얻어옵니다
-	    MsgBox "GetDibStatus:" + CStr(m_0311.GetDibStatus) + " GetDibMsg1:" + m_0311.GetDibMsg1
-	    'GetDibStatus 결과값
-	        '정상주문결과는 0 리턴,
-	        '주문가격오류, 주문가능금액부족등의 에러는 -1을 리턴
-	    'GetDibMsg1 값
-	        '주문결과 메시지를 얻을수 있습니다.
-		 */
 	}
 	public ArrayList<Object> getvalInod(){
 		orderinfo = new ArrayList<Object>();
@@ -62,6 +57,8 @@ public class Inorder {
 		}		
 		return orderinfo;
 	}
+	
+	
 	
 	public void setvalInodcredit(String sb, String accountNum, String gdmgcode, String code, long quan, long unitprice, String callcode, long loanperiod ){
 		//od = new OdBeforeinit();
@@ -108,6 +105,9 @@ public class Inorder {
 		return orderinfo;
 	}
 	
+	
+	
+	
 	public void setvalInodAlter(long ordercode, String accountNum, String gdmgcode, String code, long quan, long unitprice){
 		//od = new OdBeforeinit();
 		//od.tradeInit();		
@@ -120,15 +120,6 @@ public class Inorder {
 		inodalter.setInputValue(5, (Object)quan);
 		inodalter.setInputValue(6, (Object)unitprice);		
 		inodalter.blockRequest();
-		/*
-		'주문 결과와 주문결과 메시지를 얻어옵니다
-	    MsgBox "GetDibStatus:" + CStr(m_0311.GetDibStatus) + " GetDibMsg1:" + m_0311.GetDibMsg1
-	    'GetDibStatus 결과값
-	        '정상주문결과는 0 리턴,
-	        '주문가격오류, 주문가능금액부족등의 에러는 -1을 리턴
-	    'GetDibMsg1 값
-	        '주문결과 메시지를 얻을수 있습니다.
-		 */
 	}
 	public ArrayList<Object> getvalInodAlter(){
 		orderinfo = new ArrayList<Object>();
@@ -139,6 +130,9 @@ public class Inorder {
 		}		
 		return orderinfo;
 	}
+	
+	
+	
 	
 	public void setvalInodCancle(long ordercode, String accountNum, String gdmgcode, String code, long quan){
 		//od = new OdBeforeinit();
@@ -151,15 +145,6 @@ public class Inorder {
 		inodcancle.setInputValue(4, (Object)code);
 		inodcancle.setInputValue(5, (Object)quan);			
 		inodcancle.blockRequest();
-		/*
-		'주문 결과와 주문결과 메시지를 얻어옵니다
-	    MsgBox "GetDibStatus:" + CStr(m_0311.GetDibStatus) + " GetDibMsg1:" + m_0311.GetDibMsg1
-	    'GetDibStatus 결과값
-	        '정상주문결과는 0 리턴,
-	        '주문가격오류, 주문가능금액부족등의 에러는 -1을 리턴
-	    'GetDibMsg1 값
-	        '주문결과 메시지를 얻을수 있습니다.
-		 */
 	}
 	public ArrayList<Object> getvalInodCancle(){
 		orderinfo = new ArrayList<Object>();
@@ -170,6 +155,8 @@ public class Inorder {
 		}		
 		return orderinfo;
 	}
+	
+	
 	
 	public void setvalInodTypeccl(long ordercode, String gdmgcode, String code, long quan, long unitprice, String callcode){
 		od = new OdBeforeinit();
@@ -185,15 +172,7 @@ public class Inorder {
 		inodtypeccl.setInputValue(8, (Object)0);
 		inodtypeccl.setInputValue(9, (Object)callcode);
 		inodtypeccl.blockRequest();
-		/*
-		'주문 결과와 주문결과 메시지를 얻어옵니다
-	    MsgBox "GetDibStatus:" + CStr(m_0311.GetDibStatus) + " GetDibMsg1:" + m_0311.GetDibMsg1
-	    'GetDibStatus 결과값
-	        '정상주문결과는 0 리턴,
-	        '주문가격오류, 주문가능금액부족등의 에러는 -1을 리턴
-	    'GetDibMsg1 값
-	        '주문결과 메시지를 얻을수 있습니다.
-		 */
+	
 	}
 	public ArrayList<Object> getvalInodTypeccl(){
 		orderinfo = new ArrayList<Object>();

@@ -24,7 +24,7 @@ public class Finance_info_Scraping {
 	private ArrayList<String> name_and_class;
 	private String itemcode;
 	
-	public Finance_info_Scraping(String code){
+	public Finance_info_Scraping(String code){//종목코드를 받아와서 초기화 시킵니다.
 		itemcode = code;
 	}
 	public void setItemcode(String code){
@@ -47,27 +47,26 @@ public class Finance_info_Scraping {
 	}
 
 	
-	public void setSummary(String code){
+	public void setSummary(String code){//간단한 시세 현황을 가져오기 위해 URL주소를 생성합니다.
 		code = code.substring(1, code.length());
 		link_front = "http://media.kisline.com/investinfo/mainInvestinfo.nice?paper_stock=";
 		link_back = "&nav=3&header=N";
 		link = link_front + code + link_back;
 	}
-	public void setFinnaceinfo(String code){
+	public void setFinnaceinfo(String code){//재무정보를 가져오기 위해 URL주소를 생성합니다.
 		code = code.substring(1, code.length()); 
 
 		link_front = "http://media.kisline.com/fininfo/mainFininfo.nice?paper_stock=";
 		link_back = "&nav=4&header=N";
 		link = link_front + code + link_back;
 	}
-	public void setName_and_class(){
+	public void setName_and_class(){//종목 이름, 영문이름, 업종 분류 정보를 가져옵니다.
 		setFinnaceinfo(itemcode);
 		name_and_class = new ArrayList<String>();
 		Document doc = null;
 		try {
 			doc = Jsoup.connect(link).get();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Element info = doc.select("div.cot p strong").first();
@@ -77,13 +76,12 @@ public class Finance_info_Scraping {
 		info = doc.select("div.cot p.cot_tx").first();
 		name_and_class.add(info.text());
 	}
-	public void setLogo(){
+	public void setLogo(){//로고가  있는 사이트의 URL 주소를 가져와 이미지 아이콘에 집어넣습니다.
 		setFinnaceinfo(itemcode);
 		Document doc = null;
 		try {
 			doc = Jsoup.connect(link).get();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Element imageElement = doc.select("table.logo tbody tr td img").first();
@@ -92,11 +90,10 @@ public class Finance_info_Scraping {
 			URL s = new URL(imageElement.absUrl("src"));
 			logo_image = new ImageIcon(s);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 	}
-	public void setSummaryTableData(){
+	public void setSummaryTableData(){//간단한 시세현황 정보를 스트랩해서 리스트에 저장합니다.
 		col_name = new ArrayList<String>();
 		data = new ArrayList<String>();
 		
@@ -106,7 +103,6 @@ public class Finance_info_Scraping {
 		try {
 			doc = Jsoup.connect(link).get();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -121,7 +117,7 @@ public class Finance_info_Scraping {
 		}
 	}	
 	
-	public void setFinanceAnalysisTableData(){
+	public void setFinanceAnalysisTableData(){//재무분석 정보를 스크랩해서 리스트에 저장합니다.
 		col_name = new ArrayList<String>();
 		
 		record = new ArrayList<Object[]>(); 
@@ -174,7 +170,7 @@ public class Finance_info_Scraping {
 		    record.add(data.toArray());
 		}
 	}
-	public void setFinanceStatementTableData(){
+	public void setFinanceStatementTableData(){//재무상태표를 스크랩해서 리스트에 저장합니다.
 		col_name = new ArrayList<String>();
 		
 		record = new ArrayList<Object[]>(); 
@@ -228,7 +224,7 @@ public class Finance_info_Scraping {
 		}
 	}
 	
-	public void setStatementOfComprehensiveIncomeTableData(){
+	public void setStatementOfComprehensiveIncomeTableData(){//포괄손익계산서를 리스트에 저장
 		col_name = new ArrayList<String>();
 		
 		record = new ArrayList<Object[]>(); 
@@ -282,7 +278,7 @@ public class Finance_info_Scraping {
 		}
 	}
 	
-	public void setStatementOfCashFlowTableData(){
+	public void setStatementOfCashFlowTableData(){//현금흐름표를 리스트에 저장합니다.
 		col_name = new ArrayList<String>();
 		
 		record = new ArrayList<Object[]>(); 
@@ -334,9 +330,5 @@ public class Finance_info_Scraping {
 		    }
 		    record.add(data.toArray());
 		}
-	}
-	public static void main(String[]args){
-		Finance_info_Scraping a = new Finance_info_Scraping("A225530");
-		a.setStatementOfCashFlowTableData();//백만원 단위 전부다
 	}
 }

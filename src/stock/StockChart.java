@@ -4,7 +4,7 @@ import java.util.*;
 import com4j.*;
 import test.CpSysDib.*;
 
-public class StockChart {
+public class StockChart {//주식, 업종, ELW의 차트데이터를 수신합니다.
 	private ISysDib stkchart;
 	private long ulong;	
 	private ArrayList<Object> getlist;
@@ -16,7 +16,8 @@ public class StockChart {
 	public Object invertUnsingedLong(String s_long){
 		ulong = Long.parseUnsignedLong(s_long);
 		return ulong;
-	}	
+	}
+	//요청형식이 기간일 경우
 	public void setvalStkchart(String code, char term_count, String s_close_day, String s_open_day, long[] field, int time_option, int gap_c, int adj_price, int volume_code){
 		stkchart.setInputValue(0, (Object)code);
 		stkchart.setInputValue(1, (Object)term_count);
@@ -25,18 +26,17 @@ public class StockChart {
 			stkchart.setInputValue(5, (Object)field);
 		}	
 		stkchart.setInputValue(6, (Object)time_option);
-		//stkchart.setInputValue(7, invertUnsingedLong("1"));
 		stkchart.setInputValue(8, (Object)gap_c);
 		stkchart.setInputValue(9, (Object)adj_price);
 		stkchart.setInputValue(10,(Object)volume_code);		
 	}
+	//요청 형식이 개수일 경우
 	public void setvalStkchart(String code, int term_count, String reqcount, ArrayList<Object> field, int time_option, int gap_c, int adj_price, int volume_code){
 		stkchart.setInputValue(0, (Object)code);
 		stkchart.setInputValue(1, (Object)term_count);
 		setvalTerm_Count(reqcount);		
-		stkchart.setInputValue(5, (Object)field.toArray());		
+		stkchart.setInputValue(5, (Object)field.toArray());	//필드 값을 요청 (날짜, 시간, 고가, 저가, 종가 등등...)	
 		stkchart.setInputValue(6, (Object)time_option);
-		//stkchart.setInputValue(7, (Object)((short) 1));
 		stkchart.setInputValue(8, (Object)gap_c);
 		stkchart.setInputValue(9, (Object)adj_price);
 		stkchart.setInputValue(10,(Object)volume_code);		
@@ -48,7 +48,7 @@ public class StockChart {
 	public void setvalTerm_Count(String reqcount){
 		stkchart.setInputValue(4, invertUnsingedLong(reqcount));
 	}
-	
+	//헤더 데이터를 받아와서 리스트에 저장합니다.
 	public ArrayList<Object> getHvalStkchart(){
 		stkchart.blockRequest();
 		getlist = new ArrayList<Object>();
@@ -58,6 +58,7 @@ public class StockChart {
 		}		
 		return getlist;		
 	}
+	//요청한 필드 값을 전송받아 리스트에 저장합니다.
 	public ArrayList<Object[]> getDvalStkchart(int counts){
 		stkchart.blockRequest();
 		series = new ArrayList<Object[]>();
@@ -73,32 +74,5 @@ public class StockChart {
 			series.add(getfield.toArray());
 		}		
 		return series;		
-	}
-	
-	public static void main(String[] args){
-		StockChart stc = new StockChart();
-		ArrayList<Object> a = new ArrayList<Object>();
-		ArrayList<Object> getlist = new ArrayList<Object>();
-		a.add(0);
-		a.add(1);
-		a.add(2);
-		a.add(3);
-		a.add(4);
-		a.add(5);
-		
-		
-		stc.setvalStkchart("A003540", '2', "1000", a, 'm', '0', '1', '3');
-		getlist = stc.getHvalStkchart();
-		/*
-		for(int i=0; i<getlist.size(); i++){
-			System.out.println(getlist.get(i).toString());
-		}
-		*/
-		Object[] s = (Object[])getlist.get(2);
-		for(int i=0; i<s.length; i++){
-			System.out.println(s[i]);
-		}
-		
-		stc.getDvalStkchart(1000);
 	}
 }

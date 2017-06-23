@@ -32,10 +32,9 @@ import stock.StockCode;
 /**
  * @author Christopher Deckers
  */
+//종목명을 선택해서 관련 뉴스를 띄워주는 네이티브 브라우저 패널 클라스
 public class FinanceNews2 extends JPanel {
 
- // private static final String LS = System.getProperty("line.separator");
- // private static final Dimension THUMBNAIL_SIZE = new Dimension(400, 300);
 	private String address_front;
 	private String address_back;
 	private String code;
@@ -63,13 +62,14 @@ public class FinanceNews2 extends JPanel {
     webBrowserPanel.add(itemCode_comboBoxs, BorderLayout.NORTH);
     add(webBrowserPanel, BorderLayout.CENTER);       
   }
-  public void setLink(){
+  
+  public void setLink(){//선택된 종목 뉴스로 주소로 세팅
 	  address_front = "http://news.moneta.co.kr/Service/stock/ShellList.asp?LinkID=263&NewsSetID=1696&stockcode=";
 	  address_back = "&ModuleID=282";
 	  address = address_front+code+address_back;
   }  
  
-  public class ItemCodeListener implements ItemListener{
+  public class ItemCodeListener implements ItemListener{//해당 종목 뉴스로 주소 변경후 화면 갱신
 		public void itemStateChanged(ItemEvent e) {
 			 if (e.getStateChange() == ItemEvent.SELECTED) {
 				 try{					 	

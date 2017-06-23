@@ -32,9 +32,10 @@ import org.jfree.data.xy.OHLCDataItem;
 import org.jfree.data.xy.OHLCDataset;
 import org.jfree.data.xy.XYDataset;
 
-import GUI.sellbuyOrder.ItemCodeListener;
 import stock.*;
 import test.*;
+
+//봉차트와 시세현황을 보여주는 패널 클라스
 
 public class chartScreen extends JPanel {
 	private StockCode stc;// stock list
@@ -117,7 +118,9 @@ public class chartScreen extends JPanel {
 		panel.add(setting, BorderLayout.NORTH);
 		//add(scrollPane, BorderLayout.EAST);
 	}
-	public void setFis(){
+	
+	
+	public void setFis(){//간단한 종목명, 업종 정보를 라벨에 입력한다.
 		String s = itemCode_comboBoxs.getSelectedItem().toString();
 		s = stc.NameToCode(s);
 		fis = new Finance_info_Scraping(s);
@@ -127,9 +130,9 @@ public class chartScreen extends JPanel {
 		lblNewLabel_1.setText(info);
 	}
 	
-	public DefaultTableModel getTableModel(){
+	public DefaultTableModel getTableModel(){//DefaultTableModel을 선언하고 시세현황 데이터 담기
 		fis.setSummaryTableData();
-		DefaultTableModel defaultTableModel = new DefaultTableModel(); //DefaultTableModel을 선언하고 데이터 담기
+		DefaultTableModel defaultTableModel = new DefaultTableModel(); 
 		String[] col = {"시세현황", ""};
 		defaultTableModel.setColumnIdentifiers(col);
 		for(int i=0; i<fis.getData().size(); i++){
@@ -139,7 +142,7 @@ public class chartScreen extends JPanel {
 		return defaultTableModel;
 	}
 
-	public void setSeries(int option, int counts, ArrayList<Object> field, int date_option) {
+	public void setSeries(int option, int counts, ArrayList<Object> field, int date_option) {//OHLCV 데이터를 가져오기 위해서 세팅값을 설정한다.
 		String s = itemCode_comboBoxs.getSelectedItem().toString();
 		s = stc.NameToCode(s);
 		if (option == 0) {// 기본설정
@@ -155,7 +158,7 @@ public class chartScreen extends JPanel {
 
 	}
 
-	public OHLCDataset insert_OHLCData() {
+	public OHLCDataset insert_OHLCData() {//가져온 데이터를  데이터셋에 입력한다.
 		dataItems = new ArrayList<OHLCDataItem>();
 		for (Object[] i : series) {
 			Date date = null;
@@ -165,7 +168,6 @@ public class chartScreen extends JPanel {
 					date = df.parse(i[0].toString());
 
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			} else {
@@ -174,7 +176,6 @@ public class chartScreen extends JPanel {
 					date = df.parse(i[0].toString() + i[1].toString());
 
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -194,7 +195,7 @@ public class chartScreen extends JPanel {
 		return dataset;
 	}
 
-	public void setChart(OHLCDataset dataset) {
+	public void setChart(OHLCDataset dataset) {//데이터셋이 입력완료되면  차트에 집어넣고 차트를 세팅한다.
 		chart = ChartFactory.createCandlestickChart("", "Time", "Price", dataset, false);
 		
 		chart.setBackgroundPaint(Color.white);
@@ -202,8 +203,7 @@ public class chartScreen extends JPanel {
 		// 4. Set a few custom plot features
 		chart.getXYPlot().setRenderer(new MyCandlestickRenderer());
 		XYPlot plot = chart.getXYPlot();
-		plot.setBackgroundPaint(Color.WHITE); // light yellow = new
-												// Color(0xffffe0)
+		plot.setBackgroundPaint(Color.WHITE);
 		plot.setDomainGridlinesVisible(true);
 		plot.setDomainGridlinePaint(Color.lightGray);
 		plot.setRangeGridlinePaint(Color.lightGray);
@@ -219,7 +219,7 @@ public class chartScreen extends JPanel {
 		((CandlestickRenderer) plot.getRenderer()).setBaseOutlinePaint(Color.black);	   
 	}
 	
-	public class MyCandlestickRenderer extends CandlestickRenderer {
+	public class MyCandlestickRenderer extends CandlestickRenderer {//차트의 봉을 음봉과 양봉으로 렌더링한다.
 
 	    @Override
 	    public Paint getItemPaint(int row, int column) {
@@ -241,10 +241,13 @@ public class chartScreen extends JPanel {
 	        }
 	    }
 	}
-
+	
+	
+	
+	//리스너
 	public class ItemCodeListener implements ItemListener {
 		public void itemStateChanged(ItemEvent e) {
-			if (e.getStateChange() == ItemEvent.SELECTED) {
+			if (e.getStateChange() == ItemEvent.SELECTED) {//종목이 변경되면 차트를 초기값으로 설정한다.
 				remove(chartpanel);
 				setSeries(1, 100, fields, 'D');
 				setChart(insert_OHLCData());
@@ -260,7 +263,7 @@ public class chartScreen extends JPanel {
 
 	public class Day_OptionListener implements ItemListener {
 		public void itemStateChanged(ItemEvent e) {
-			if (e.getStateChange() == ItemEvent.SELECTED) {
+			if (e.getStateChange() == ItemEvent.SELECTED) {//봉 단위 변경에 따라 차트를 다시 설정
 				if(e.getItem().toString().equals("분")){
 					setSeries(1, 100, fields, 'm');
 					setChart(insert_OHLCData());
@@ -284,22 +287,6 @@ public class chartScreen extends JPanel {
 			}
 		}
 	}
-	/*
-	public static void main(String[] args) {
-		chartScreen c = new chartScreen();
-		JFrame myFrame = new JFrame();
-		myFrame.setResizable(true);
-		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		myFrame.getContentPane().add(c, BorderLayout.CENTER);
-		Toolkit kit = Toolkit.getDefaultToolkit();
-		Insets insets = kit.getScreenInsets(myFrame.getGraphicsConfiguration());
-		Dimension screen = kit.getScreenSize();
-		myFrame.setSize((int) (screen.getWidth() - insets.left - insets.right),
-				(int) (screen.getHeight() - insets.top - insets.bottom));
-		myFrame.setLocation((int) (insets.left), (int) (insets.top));
-		myFrame.setVisible(true);
-	}
-	*/
 }
 
 

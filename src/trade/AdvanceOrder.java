@@ -3,6 +3,7 @@ package trade;
 import java.util.ArrayList;
 import com4j.*;
 import test.cptrade.*;
+//내용이 많아서 사이보스 help 문서를 참고
 
 public class AdvanceOrder {
 	private ICpTdDib stadvanceOrder;
@@ -18,6 +19,9 @@ public class AdvanceOrder {
 		stadvanceCancle = test.cptrade.ClassFactory.createCpTdNew9064();//주식(거래소 코스닥) 예약 취소주문
 		stadvanceOdList = test.cptrade.ClassFactory.createCpTd9065();//주식(거래소 코스닥) 예약 주문 내역조회
 	}
+	
+	
+	
 	public void setvalStadOrder(String gdmgcode, String ordercode, String code, long orderQuan, String callcode, 
 								long orderprice, String cacrdcode, String datecrdloan, String crdloancode){
 		od = new OdBeforeinit();
@@ -47,6 +51,8 @@ public class AdvanceOrder {
 		return adorderinfo;
 	}
 	
+	
+	
 	public void setvalStadCancle(long advancenum, String gdmgcode, String code){
 		od = new OdBeforeinit();
 		od.tradeInit();		
@@ -69,6 +75,9 @@ public class AdvanceOrder {
 		}		
 		return adorderinfo;
 	}
+	
+	
+	
 	
 	public void setvalStadOdList(String gdmgcode, long quirynum){
 		od = new OdBeforeinit();

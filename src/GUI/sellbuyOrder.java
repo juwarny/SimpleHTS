@@ -14,7 +14,7 @@ import GUI.AutoSuggest;
 import trade.Inorder;
 import trade.Inquiry;
 import trade.OdBeforeinit;
-
+//매수 매도 주문  패널 클라스
 public class sellbuyOrder extends JPanel {
 	private StockCode stc;//stock list
 	private StockMst stm;	
@@ -47,10 +47,7 @@ public class sellbuyOrder extends JPanel {
 		accountlist = accountNum;
 		
 		setLayout(new GridLayout(0, 2, 0, 0));
-		SellBuyChangeListener sbListener = new SellBuyChangeListener();;
-		
-			
-		
+		SellBuyChangeListener sbListener = new SellBuyChangeListener();		
 		ItemCodeListener itemcodeListener = new ItemCodeListener();		
 		QuanChangeListener quanListener = new QuanChangeListener();
 		PriceChangeListener priceListener = new PriceChangeListener();
@@ -123,19 +120,13 @@ public class sellbuyOrder extends JPanel {
 		
 		add(panel);
 	}
-	public void insert_Accountnum_Combobox(JComboBox accountNum_comboBox){
+	public void insert_Accountnum_Combobox(JComboBox accountNum_comboBox){//계좌번호 입력
 		
 		for(int i=0; i<accountlist.length; i++){
 			accountNum_comboBox.addItem(accountlist[i]);
 		}	
 	}
-	public void insert_ItemCode_Combobox(ArrayList<Object[]> stclist){
-		stclist_name = new ArrayList<String>();		
-		for(int i=0; i<stclist.size(); i++){
-			stclist_name.add(stclist.get(i)[1].toString());
-		}	
-	}
-	public void insert_SellItem_Combobox(){
+	public void insert_SellItem_Combobox(){//매도 가능한 종목명 리스트를 가져온다.
 		stclist_name_possible = new ArrayList<String>();
 		possible.setvalSella((String)accountNum_comboBox.getSelectedItem(), "10", "", '1', '1', "", "00", "", '0', "00", 20);
 		int count = possible.getHvalSella().intValue();
@@ -145,12 +136,14 @@ public class sellbuyOrder extends JPanel {
 	}
 	public String itemName(){
 		return itemCode_comboBoxs.getSelectedItem().toString();
-	}	
+	}
+	
+	
 	/*리스너*/
 	
 	
 	
-	public class SellBuyChangeListener implements ItemListener{
+	public class SellBuyChangeListener implements ItemListener{//매수 매도에 따라 종목명 콤보박스를 갱신한다.
 		public void itemStateChanged(ItemEvent e) {
 			if(e.getItem()=="매수"){
 				itemCode_comboBoxs.removeAllItems();
@@ -169,7 +162,7 @@ public class sellbuyOrder extends JPanel {
 			}
 		}
 	}	
-	public class OrderActionListener implements ActionListener{
+	public class OrderActionListener implements ActionListener{//설정된 값으로 주문을 한다.
 		public void actionPerformed(ActionEvent e) {
 			Inorder oder = new Inorder();
 			oder.setvalInod((String)sellbuy_comboBox.getSelectedItem(), (String)accountNum_comboBox.getSelectedItem(), "10", 
@@ -183,6 +176,9 @@ public class sellbuyOrder extends JPanel {
 			String s = stc.NameToCode((String)itemCode_comboBoxs.getSelectedItem());
 			Long unit_up = stc.GetPriceUnit(s, price_before.intValue(), true);
 			Long unit_down = stc.GetPriceUnit(s, price_before.intValue(), false);
+			
+			//주가의 경우 가격에 따라 매매 단위가 달라지기 때문에 (예: 1000원이면, 위로는 5원 아래로는 1원 ) 가격에 따른 단위 변경을 설정해줘야 한다.
+
 			if(price_before!=Integer.toUnsignedLong(0)){
 				if(a>price_before){
 					orderUnitPrice_spinner.setModel(new SpinnerNumberModel(new Long(price_before+unit_up), null, null, new Long(unit_up)));
@@ -193,13 +189,15 @@ public class sellbuyOrder extends JPanel {
 					price_before-=unit_down;
 				}		
 			}
+			//총합계변경
 			Long total = Long.parseUnsignedLong(orderUnitPrice_spinner.getValue().toString())*Long.parseUnsignedLong(orderQuan_spinner.getValue().toString());
 			String str = String.format("%,d 원", total);
 			label_4.setText("총 합계 : "+str);
 		}
 	}
 	public class QuanChangeListener implements ChangeListener{
-		public void stateChanged(ChangeEvent e) {				
+		public void stateChanged(ChangeEvent e) {
+			//총합계변경				
 			 Long total = Long.parseUnsignedLong(orderUnitPrice_spinner.getValue().toString())*Long.parseUnsignedLong(orderQuan_spinner.getValue().toString());
 			 String str = String.format("%,d 원", total);
 			 label_4.setText("총 합계 : "+str);
@@ -207,14 +205,14 @@ public class sellbuyOrder extends JPanel {
 	}
 	public class ItemCodeListener implements ItemListener{
 		public void itemStateChanged(ItemEvent e) {
-			 if (e.getStateChange() == ItemEvent.SELECTED) {
+			 if (e.getStateChange() == ItemEvent.SELECTED) {//
 				 try{					 	
 					 	if(stc.NameToCode(e.getItem().toString()) != "" && sellbuy_comboBox.getSelectedItem()=="매수"){
 					 		String s = stc.NameToCode(e.getItem().toString());
 							stm.setvalStockmst2(s);
 							price_before = Long.parseUnsignedLong(stm.getDvalStockmst2(0).get(3).toString());// 현재가 입력
 							orderUnitPrice_spinner.setValue(price_before);
-							possible.setvalPurchase((String)accountNum_comboBox.getSelectedItem(), "10", s, "01", price_before, 'N', '2');
+							possible.setvalPurchase((String)accountNum_comboBox.getSelectedItem(), "10", s, "01", price_before, 'N', '2');//매수 가능한 값 불러오기
 							orderQuan_spinner.setValue(possible.getvalPurchase().get(18));
 							orderUnitPrice_spinner.setEnabled(true);
 							orderQuan_spinner.setEnabled(true);
@@ -224,13 +222,14 @@ public class sellbuyOrder extends JPanel {
 							stm.setvalStockmst2(s);
 							price_before = Long.parseUnsignedLong(stm.getDvalStockmst2(0).get(3).toString());// 현재가 입력
 							orderUnitPrice_spinner.setValue(price_before);
-							possible.setvalSella((String)accountNum_comboBox.getSelectedItem(), "10", s, '1', '1', "", "00", "", '0', "00", 1);
+							possible.setvalSella((String)accountNum_comboBox.getSelectedItem(), "10", s, '1', '1', "", "00", "", '0', "00", 1);//매도 가능한 값 불러오기
 							if(possible.getHvalSella()!= Long.parseLong("0")){
 								orderQuan_spinner.setValue(possible.getDvalSella(0).get(12));
 								orderUnitPrice_spinner.setEnabled(true);
 								orderQuan_spinner.setEnabled(true);
 							}							
 					 	}
+					 	//종목명 선택에 따른 호가창 갱신
 					 	remove(jpu);
 					 	jpu = new Jpbid1sUpdate(e.getItem().toString());
 						add(jpu, 0);					 

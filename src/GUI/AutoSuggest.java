@@ -19,6 +19,8 @@ import javax.swing.JTextField;
  * 자동 완성 기능의 콤보박스!
  * @author 남유림
  */
+//영어는 문제가 없지만 한글의 경우에는 자음 모음이 합쳐져야 해서 문제가 생깁니다...
+
 public class AutoSuggest extends JComboBox {
 
     private final JTextField tf;

@@ -50,7 +50,7 @@ import javax.swing.JTabbedPane;
 import trade.*;
 import java.awt.Scrollbar;
 import java.awt.FlowLayout;
-
+//계좌정보를 띄워주는 패널 클라스
 public class accountScreen extends JPanel {
 
 	private JPanel contentPane;

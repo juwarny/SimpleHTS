@@ -42,7 +42,7 @@ import org.jfree.data.xy.XYDataset;
 import GUI.sellbuyOrder.ItemCodeListener;
 import stock.*;
 import test.*;
-
+//10차 호가 데이터를 차트로 보여주는 패널 클라스
 public class Jpbid1sUpdate extends JPanel {
 	private StockCode stc;// stock list
 	private StockJpBid jbid;
@@ -61,16 +61,12 @@ public class Jpbid1sUpdate extends JPanel {
 		
 		setLayout(new BorderLayout(0, 0));
 		chart = ChartFactory.createBarChart("", "", "Call Volume", setData(), PlotOrientation.HORIZONTAL, false, true, false);
-		setChart();
-		
+		setChart();		
 		
 		chartpanel = new ChartPanel(chart);
-		add(chartpanel, BorderLayout.CENTER);
-		
-		
-		
+		add(chartpanel, BorderLayout.CENTER);		
 	}
-	public void go() throws InterruptedException{
+	public void go() throws InterruptedException{//1초에 한번씩 데이터와 차트를 갱신...
 		while(true){
 			Thread.sleep(1000);
 			barChartData = new DefaultCategoryDataset();
@@ -89,7 +85,7 @@ public class Jpbid1sUpdate extends JPanel {
 		this.name = name;
 	}
 
-	public CategoryDataset setData() {
+	public CategoryDataset setData() {//선택된 종목명으로 다시 데이터를 받아와 차트를 갱신한다.
 		
 		String s = stc.NameToCode(name);
 		jbid.setvalStockJpBid(s);
@@ -99,7 +95,7 @@ public class Jpbid1sUpdate extends JPanel {
 		int count = barChartData.getRowCount();
 				
 		
-		
+		//하다보니 하드코딩이...
 		barChartData.setValue(Long.parseLong(list.get(9)[3].toString()), buy, list.get(9)[1].toString());
 		barChartData.setValue(Long.parseLong(list.get(8)[3].toString()), buy, list.get(8)[1].toString());
 		barChartData.setValue(Long.parseLong(list.get(7)[3].toString()), buy, list.get(7)[1].toString());
@@ -125,7 +121,7 @@ public class Jpbid1sUpdate extends JPanel {
 	}
 
 	
-	public void setChart() {
+	public void setChart() {//차트 설정값 세팅
 				
 		chart.setBackgroundPaint(Color.white);	
 		CategoryPlot plot = chart.getCategoryPlot();
@@ -138,31 +134,8 @@ public class Jpbid1sUpdate extends JPanel {
         renderer.setDrawBarOutline(false);
         
         renderer.setSeriesPaint(1, Color.BLUE, false);		   
-	}
-
-
-
+	}	
 	
-	public static void main(String[] args) {
-		Jpbid1sUpdate c = new Jpbid1sUpdate("자화전자");
-		JFrame myFrame = new JFrame();
-		myFrame.setResizable(true);
-		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		myFrame.getContentPane().add(c, BorderLayout.CENTER);
-		Toolkit kit = Toolkit.getDefaultToolkit();
-		Insets insets = kit.getScreenInsets(myFrame.getGraphicsConfiguration());
-		Dimension screen = kit.getScreenSize();
-		myFrame.setSize((int) (screen.getWidth() - insets.left - insets.right),
-				(int) (screen.getHeight() - insets.top - insets.bottom));
-		myFrame.setLocation((int) (insets.left), (int) (insets.top));
-		myFrame.setVisible(true);
-		try {
-			c.go();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 }
 

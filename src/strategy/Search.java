@@ -3,7 +3,7 @@ package strategy;
 import test.CpSysDib.*;
 import java.util.ArrayList;
 import com4j.*;
-
+//연결 문제가 자바에서는 해결이 안되는 것 같아서 패스....ㅠㅠ
 public class Search {
 	private ISysDib stglist;
 	private ISysDib stgfind;
@@ -43,7 +43,7 @@ public class Search {
 		stginfo = new ArrayList<Object>();
 		stglist.blockRequest();
 		for(int i=0; i<8; i++){
-			//while(stglist.getDataValue(i, index)==null) i++;
+			while(stglist.getDataValue(i, index)==null) i++;
 			Object a = stglist.getDataValue(i, index);
 			stginfo.add(a);			
 		}		

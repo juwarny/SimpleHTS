@@ -4,6 +4,7 @@ import java.lang.invoke.SerializedLambda;
 import java.util.ArrayList;
 import com4j.*;
 import test.cptrade.*;
+//내용이 많아서 사이보스 help 문서를 참고
 
 public class Inquiry {
 	private ICpTdDib stpaydeposit;
@@ -27,12 +28,12 @@ public class Inquiry {
 		ytdayconcri = test.cptrade.ClassFactory.createCpTd5342();//금일/전일의 종목별 체결기준 조회
 		concribalance = test.cptrade.ClassFactory.createCpTd6033();//체결기준 잔고조회
 	}
-	public void setvalStpay(int set, long accountnum) {
-		stpaydeposit.setInputValue(set, (Object)accountnum);
-		stpaydeposit.blockRequest();
-	}
-	public void setvalStpay(int set, String gdmgcode) {
-		stpaydeposit.setInputValue(set, (Object)gdmgcode);
+	
+	
+	
+	public void setvalStpay(long accountnum, String gdmgcode) {
+		stpaydeposit.setInputValue(0, (Object)accountnum);
+		stpaydeposit.setInputValue(1, (Object)gdmgcode);
 		stpaydeposit.blockRequest();
 	}
 	public ArrayList<Object> getvalStpay(){
@@ -44,6 +45,8 @@ public class Inquiry {
 		}		
 		return quiryinfo;
 	}
+	
+	
 	
 	public void setvalPurchase(String accountNum, String gdmgcode, String code, String callcode, long unitprice, int recimarginYN, int quirycode ){
 		//od = new OdBeforeinit();
@@ -70,6 +73,8 @@ public class Inquiry {
 		}		
 		return quiryinfo;
 	}
+	
+	
 	
 	public void setvalSella(String accountNum, String gdmgcode, String code, int stbdcode, int cacrdcode, 
 							String datecrdloan, String crdloancode, String purdate, 
@@ -106,6 +111,8 @@ public class Inquiry {
 		return Long.parseLong(sellableavail.getHeaderValue(0).toString());
 	}
 	
+	
+	
 	public void setvalDayNconclud(String accountNum, String gdmgcode, String code, String callcode, String sortcode, String qrclosecode, Long quirynum ){
 		//od = new OdBeforeinit();
 		//od.tradeInit();		
@@ -124,7 +131,7 @@ public class Inquiry {
 	public Long getHvalDayNconclud(){
 		dayNconclud.blockRequest();
 		return Long.parseLong(dayNconclud.getHeaderValue(5).toString());
-	}
+	}//5 - (long) 수신개수만을 받아옴
 	public ArrayList<Object> getDvalDayNconclud(int index){
 		quiryinfo = new ArrayList<Object>();
 		dayNconclud._continue(1);
@@ -135,6 +142,8 @@ public class Inquiry {
 		}		
 		return quiryinfo;
 	}
+	
+	
 	
 	public void setvalDayconclud(String gdmgcode, String code, long startcallcode, String sortcode, long quirynum, String quirycode){
 		od = new OdBeforeinit();
@@ -161,6 +170,7 @@ public class Inquiry {
 		}		
 		return quiryinfo;
 	}
+	
 	
 	
 	public void setvalYtdaycon(String gdmgcode,  long quirynum, String quirydatecode, String quiryitemcode){
@@ -196,6 +206,8 @@ public class Inquiry {
 		}		
 		return quiryinfo;
 	}
+	
+	
 	
 	public void setvalConcribalance(String accountNum, String gdmgcode,  long quirynum){
 		//od = new OdBeforeinit();

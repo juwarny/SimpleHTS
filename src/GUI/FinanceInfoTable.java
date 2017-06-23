@@ -23,6 +23,8 @@ import stock.StockCode;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
 
+//기업 재무정보를 가져와 테이블로 제공하는 패널 클라스
+
 public class FinanceInfoTable extends JPanel
 {
 	private JTable jTable;	
@@ -89,7 +91,7 @@ public class FinanceInfoTable extends JPanel
 		add(jScollPane, BorderLayout.CENTER);
 	}
 	
-	public void insert_ItemCode_Combobox(ArrayList<Object[]> stclist){
+	public void insert_ItemCode_Combobox(ArrayList<Object[]> stclist){//종목명 리스트를 받아온다.
 		stclist_name = new ArrayList<String>();		
 		for(int i=0; i<stclist.size(); i++){
 			stclist_name.add(stclist.get(i)[1].toString());
@@ -106,7 +108,7 @@ public class FinanceInfoTable extends JPanel
 		return defaultTableModel;
 	}
 	
-	public class ItemCodeListener implements ItemListener{
+	public class ItemCodeListener implements ItemListener{//기업의 로고와 종목명, 업종을 가져와 라벨에 세팅
 		public void itemStateChanged(ItemEvent e) {
 			 if (e.getStateChange() == ItemEvent.SELECTED) {
 				 try{					 	
@@ -128,7 +130,7 @@ public class FinanceInfoTable extends JPanel
 		
 	}
 	
-	public class OptionListener implements  ActionListener{
+	public class OptionListener implements  ActionListener{//선택된 재무정보로 다시 테이블을 설정한다.
 		public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("재무분석")){
 					fis.setFinanceAnalysisTableData();

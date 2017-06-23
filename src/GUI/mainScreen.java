@@ -53,6 +53,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
 import java.awt.Dimension;
 
+//GUI에 있는 나머지 패널 클라스를 탭형태로 가져온다.
 
 public class mainScreen extends JFrame {
 
@@ -168,34 +169,32 @@ public class mainScreen extends JFrame {
 		ck = new click();
 		tabbedPane.addMouseListener(ck);
 	}
-	public void setListLoading(JFrame f){		
-		
+	public void setListLoading(JFrame f){//실행하기 전에 전체 종목명 리스트를 가져온다.		
 		stc = new StockCode();
 		stclist = stc.getStockList(f);
 		insert_ItemCode_Combobox(stclist);				    
 		
 	}
-	public void setAccountNumber(){
+	public void setAccountNumber(){//실행하기 전에 계좌비밀번호를 입력한다.
 		od = new OdBeforeinit();
 		od.tradeInit();		
 		accountNum =  od.getAccountNum();
 	}
-	public void insert_ItemCode_Combobox(ArrayList<Object[]> stclist){
+	public void insert_ItemCode_Combobox(ArrayList<Object[]> stclist){//실행하기 전에 전체 종목명 리스트를 가져온다.
 		stclist_name = new ArrayList<String>();		
 		for(int i=0; i<stclist.size(); i++){
 			stclist_name.add(stclist.get(i)[1].toString());
 		}	
 	}
-	public class menuActionListener implements  ActionListener{
+	
+	//리스너
+	public class menuActionListener implements  ActionListener{//메뉴를 선택하면 해당 패널을 탭에 생성
 		public void actionPerformed(ActionEvent e) {
 			if(e.getActionCommand().equals("체결기준 잔고 조회/평가")){
 				as = new accountScreen(accountNum);
 				tabbedPane.addTab("체결기준 잔고 조회/평가", null, as, null);
 				tabbedPane.setSelectedComponent(as);
-			}
-			else if(e.getActionCommand().equals("금일 주문/체결 내역")){
-				
-			}
+			}			
 			else if(e.getActionCommand().equals("종목 시가")){
 				cs = new chartScreen(stclist_name);
 				tabbedPane.addTab("종목 시가", null, cs, null);
@@ -227,7 +226,7 @@ public class mainScreen extends JFrame {
 		}
 		
 	}
-	public class click implements MouseListener{
+	public class click implements MouseListener{//탭을 더블클릭하면 해당 탭을 삭제시킴
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -260,6 +259,7 @@ public class mainScreen extends JFrame {
 			// TODO Auto-generated method stub
 			
 		}
+
 		
 	}
 }
