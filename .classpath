@@ -3,8 +3,27 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="ds"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="C:/Users/zmsdp/Documents/com4j-20120426-2/args4j-2.0.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/zmsdp/Documents/com4j-20120426-2/com4j.jar"/>
-	<classpathentry kind="lib" path="C:/Users/zmsdp/Documents/com4j-20120426-2/tlbimp.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/com4j-20120426-2/args4j-2.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/com4j-20120426-2/com4j.jar" sourcepath="C:/Users/Juwarny/Documents/com4j-20120426-2/com4j-src.zip"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/com4j-20120426-2/tlbimp.jar"/>
+	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/jfreechart-1.0.19/lib/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/jfreechart-1.0.19/lib/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/jfreechart-1.0.19/lib/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/jfreechart-1.0.19/lib/jfreechart-1.0.19-experimental.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/jfreechart-1.0.19/lib/jfreechart-1.0.19-swt.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/jfreechart-1.0.19/lib/jfreesvg-2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/jfreechart-1.0.19/lib/junit-4.11.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/jfreechart-1.0.19/lib/orsoncharts-1.4-eval-nofx.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/jfreechart-1.0.19/lib/orsonpdf-1.6-eval.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/jfreechart-1.0.19/lib/servlet.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/jfreechart-1.0.19/lib/swtgraphics2d.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/jsoup-1.10.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/ta4j-0.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/ta4j-0.8-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/ta4j-0.8-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/DJNativeSwing-SWT-1-0-2/DJNativeSwing.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/DJNativeSwing-SWT-1-0-2/DJNativeSwing-SWT.jar" sourcepath="C:/Users/Juwarny/Documents/DJNativeSwing-SWT-1-0-2"/>
+	<classpathentry kind="lib" path="C:/Users/Juwarny/Documents/DJNativeSwing-SWT-1-0-2/DJNativeSwing-SWTDemo.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
